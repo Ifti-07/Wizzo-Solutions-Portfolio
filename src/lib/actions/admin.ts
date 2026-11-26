@@ -9,6 +9,7 @@ import { eq, desc, sql } from "drizzle-orm";
 import { requireRole, logAudit, hashPassword } from "@/lib/auth";
 import { getStoredInquiries, markInquiryRead, deleteInquiry } from "@/lib/inquiries";
 import { servicesFallback } from "@/lib/site";
+import { ensureDatabaseSchema } from "@/db/auto-migrate";
 
 type Ok = { ok: boolean; error?: string };
 
@@ -24,6 +25,7 @@ export async function getAdminOverview() {
   await requireAdmin();
   if (pool) {
     try {
+      await ensureDatabaseSchema();
       const [userCount] = await db.select({ c: sql<number>`count(*)` }).from(users);
       const [appCount] = await db.select({ c: sql<number>`count(*)` }).from(applications);
       const [pendingCount] = await db
@@ -35,10 +37,10 @@ export async function getAdminOverview() {
       const recentAudit = await db.select().from(auditLogs).orderBy(desc(auditLogs.createdAt)).limit(8);
       const jobCount = await db.select({ c: sql<number>`count(*)` }).from(jobs);
       return {
-        users: Number(userCount.c),
-        applications: Number(appCount.c),
-        pending: Number(pendingCount.c),
-        messages: Number(msgCount.c),
+        users: Number(userCount?.c || 0),
+        applications: Number(appCount?.c || 0),
+        pending: Number(pendingCount?.c || 0),
+        messages: Number(msgCount?.c || 0),
         jobs: Number(jobCount[0]?.c || 0),
         recentApps: recentApps.map((a) => ({ ...a, createdAt: a.createdAt.toISOString() })),
         recentAudit: recentAudit.map((a) => ({ ...a, createdAt: a.createdAt.toISOString() })),
@@ -475,10 +477,9 @@ export async function getContacts() {
   await requireAdmin();
   if (pool) {
     try {
+      await ensureDatabaseSchema();
       const rows = await db.select().from(contacts).orderBy(desc(contacts.createdAt));
-      if (rows && rows.length > 0) {
-        return rows.map((c) => ({ ...c, createdAt: c.createdAt.toISOString() }));
-      }
+      return (rows || []).map((c) => ({ ...c, createdAt: c.createdAt.toISOString() }));
     } catch (e) {
       console.warn("DB query failed for contacts, falling back to local store:", e);
     }

@@ -1,4 +1,5 @@
 import { pool } from "@/db";
+import { ensureDatabaseSchema } from "@/db/auto-migrate";
 
 export const dynamic = "force-dynamic";
 
@@ -6,6 +7,7 @@ export async function GET() {
   let dbStatus = "standalone";
   if (pool) {
     try {
+      await ensureDatabaseSchema();
       await pool.query("SELECT 1");
       dbStatus = "connected";
     } catch {

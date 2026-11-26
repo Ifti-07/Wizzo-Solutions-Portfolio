@@ -3,6 +3,7 @@
 import { db, pool } from "@/db";
 import { contacts, applications } from "@/db/schema";
 import { saveInquiry } from "@/lib/inquiries";
+import { ensureDatabaseSchema } from "@/db/auto-migrate";
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 
@@ -24,9 +25,10 @@ export async function submitContact(_prev: ActionResult | null, formData: FormDa
 
     if (pool) {
       try {
+        await ensureDatabaseSchema();
         await db.insert(contacts).values({ name, email, phone, company, service, message });
       } catch (err) {
-        console.warn("DB insert contacts failed, saving to file:", err);
+        console.warn("DB insert contacts notice:", err);
       }
     }
     await saveInquiry({ name, email, phone, company, service, message });
@@ -73,6 +75,10 @@ export async function submitApplication(_prev: ActionResult | null, formData: Fo
           cvPath = `[unpersisted]-${safe}`;
         }
       }
+    }
+
+    if (pool) {
+      await ensureDatabaseSchema();
     }
 
     const jobIdRaw = String(formData.get("jobId") || "");

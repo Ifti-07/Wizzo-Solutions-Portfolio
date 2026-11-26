@@ -13,7 +13,11 @@ export type Inquiry = {
   createdAt: string;
 };
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// Detect serverless environment (e.g. Vercel, AWS Lambda)
+const isServerless = Boolean(
+  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NODE_ENV === "production"
+);
+const DATA_DIR = isServerless ? "/tmp" : path.join(process.cwd(), "data");
 const INQUIRIES_FILE = path.join(DATA_DIR, "inquiries.json");
 
 const sampleInquiries: Inquiry[] = [
@@ -41,31 +45,35 @@ const sampleInquiries: Inquiry[] = [
   },
 ];
 
+let memoryInquiries: Inquiry[] = [...sampleInquiries];
+
 async function ensureFile(): Promise<void> {
   try {
     await fs.mkdir(DATA_DIR, { recursive: true });
     try {
       await fs.access(INQUIRIES_FILE);
     } catch {
-      await fs.writeFile(INQUIRIES_FILE, JSON.stringify(sampleInquiries, null, 2), "utf8");
+      await fs.writeFile(INQUIRIES_FILE, JSON.stringify(memoryInquiries, null, 2), "utf8");
     }
-  } catch (e) {
-    console.error("Error ensuring inquiries file:", e);
+  } catch {
+    // Read-only filesystem or temporary container — safely maintain in-memory store
   }
 }
 
 export async function getStoredInquiries(): Promise<Inquiry[]> {
-  await ensureFile();
   try {
+    await ensureFile();
     const raw = await fs.readFile(INQUIRIES_FILE, "utf8");
     const data = JSON.parse(raw);
-    if (Array.isArray(data)) {
-      return data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    if (Array.isArray(data) && data.length > 0) {
+      memoryInquiries = data;
     }
-  } catch (e) {
-    console.error("Failed to read stored inquiries:", e);
+  } catch {
+    // Use in-memory if file read fails
   }
-  return sampleInquiries;
+  return [...memoryInquiries].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 }
 
 export async function saveInquiry(item: {
@@ -76,7 +84,6 @@ export async function saveInquiry(item: {
   service?: string | null;
   message: string;
 }): Promise<Inquiry> {
-  await ensureFile();
   const current = await getStoredInquiries();
   const nextId = current.length > 0 ? Math.max(...current.map((i) => i.id)) + 1 : 1;
   const newInquiry: Inquiry = {
@@ -90,23 +97,36 @@ export async function saveInquiry(item: {
     read: false,
     createdAt: new Date().toISOString(),
   };
-  const updated = [newInquiry, ...current];
-  await fs.writeFile(INQUIRIES_FILE, JSON.stringify(updated, null, 2), "utf8");
+  memoryInquiries = [newInquiry, ...current];
+  try {
+    await ensureFile();
+    await fs.writeFile(INQUIRIES_FILE, JSON.stringify(memoryInquiries, null, 2), "utf8");
+  } catch {
+    // Memory store updated
+  }
   return newInquiry;
 }
 
 export async function markInquiryRead(id: number, read: boolean): Promise<boolean> {
-  await ensureFile();
   const current = await getStoredInquiries();
-  const updated = current.map((item) => (item.id === id ? { ...item, read } : item));
-  await fs.writeFile(INQUIRIES_FILE, JSON.stringify(updated, null, 2), "utf8");
+  memoryInquiries = current.map((i) => (i.id === id ? { ...i, read } : i));
+  try {
+    await ensureFile();
+    await fs.writeFile(INQUIRIES_FILE, JSON.stringify(memoryInquiries, null, 2), "utf8");
+  } catch {
+    // Memory store updated
+  }
   return true;
 }
 
 export async function deleteInquiry(id: number): Promise<boolean> {
-  await ensureFile();
   const current = await getStoredInquiries();
-  const updated = current.filter((item) => item.id !== id);
-  await fs.writeFile(INQUIRIES_FILE, JSON.stringify(updated, null, 2), "utf8");
+  memoryInquiries = current.filter((i) => i.id !== id);
+  try {
+    await ensureFile();
+    await fs.writeFile(INQUIRIES_FILE, JSON.stringify(memoryInquiries, null, 2), "utf8");
+  } catch {
+    // Memory store updated
+  }
   return true;
 }

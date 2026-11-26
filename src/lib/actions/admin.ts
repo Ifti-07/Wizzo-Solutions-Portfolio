@@ -8,6 +8,12 @@ import {
 import { eq, desc, sql } from "drizzle-orm";
 import { requireRole, logAudit, hashPassword } from "@/lib/auth";
 import { getStoredInquiries, markInquiryRead, deleteInquiry } from "@/lib/inquiries";
+import {
+  getStoredJobs,
+  saveStoredJob,
+  toggleStoredJob,
+  deleteStoredJob,
+} from "@/lib/jobs-store";
 import { servicesFallback } from "@/lib/site";
 import { ensureDatabaseSchema } from "@/db/auto-migrate";
 
@@ -50,12 +56,13 @@ export async function getAdminOverview() {
     }
   }
   const stored = await getStoredInquiries();
+  const fileJobs = await getStoredJobs();
   return {
     users: 1,
     applications: 0,
     pending: 0,
     messages: stored.length,
-    jobs: 0,
+    jobs: fileJobs.length,
     recentApps: [],
     recentAudit: [],
   };
@@ -215,49 +222,118 @@ export async function adminGetJobs() {
   await requireAdmin();
   if (pool) {
     try {
+      await ensureDatabaseSchema();
       const rows = await db.select().from(jobs).orderBy(desc(jobs.createdAt));
-      return rows.map((j) => ({ ...j, deadline: j.deadline ? j.deadline.toISOString() : null, createdAt: j.createdAt.toISOString() }));
+      if (rows && rows.length > 0) {
+        return rows.map((j) => ({
+          ...j,
+          deadline: j.deadline ? j.deadline.toISOString() : null,
+          createdAt: j.createdAt.toISOString(),
+        }));
+      }
     } catch (e) {
-      console.warn("adminGetJobs DB error:", e);
+      console.warn("adminGetJobs DB notice:", e);
     }
   }
-  return [];
+  return await getStoredJobs();
 }
 
 export async function adminSaveJob(data: {
-  id?: number; title: string; type: "INTERNSHIP" | "FULL_TIME"; category: string;
-  location: string; description: string; requirements: string; deadline?: string; open: boolean;
+  id?: number;
+  title: string;
+  type: "INTERNSHIP" | "FULL_TIME";
+  category: string;
+  location: string;
+  description: string;
+  requirements: string;
+  deadline?: string;
+  open: boolean;
 }): Promise<Ok> {
-  const admin = await requireAdmin();
-  if (!data.title || !data.description) return { ok: false, error: "Title and description are required." };
-  const payload = {
-    title: data.title, type: data.type, category: data.category || "General",
-    location: data.location || "Dhaka, Bangladesh", description: data.description,
-    requirements: data.requirements || "", deadline: data.deadline ? new Date(data.deadline) : null,
-    open: data.open,
-  };
-  if (data.id) {
-    await db.update(jobs).set(payload).where(eq(jobs.id, data.id));
-    await logAudit(admin.uid, "JOB_UPDATE", `Updated job #${data.id}`);
-  } else {
-    await db.insert(jobs).values(payload);
-    await logAudit(admin.uid, "JOB_CREATE", `Created job ${data.title}`);
+  try {
+    const admin = await requireAdmin();
+    if (!data.title?.trim() || !data.description?.trim()) {
+      return { ok: false, error: "Title and description are required." };
+    }
+    const payload = {
+      title: data.title.trim(),
+      type: data.type || "INTERNSHIP",
+      category: data.category?.trim() || "Engineering",
+      location: data.location?.trim() || "Dhaka, Bangladesh",
+      description: data.description.trim(),
+      requirements: data.requirements?.trim() || "",
+      deadline: data.deadline ? new Date(data.deadline) : null,
+      open: data.open,
+    };
+
+    if (pool) {
+      try {
+        await ensureDatabaseSchema();
+        if (data.id) {
+          await db.update(jobs).set(payload).where(eq(jobs.id, data.id));
+          await logAudit(admin.uid, "JOB_UPDATE", `Updated job #${data.id}`);
+        } else {
+          await db.insert(jobs).values(payload);
+          await logAudit(admin.uid, "JOB_CREATE", `Created job ${data.title}`);
+        }
+      } catch (e) {
+        console.warn("adminSaveJob DB notice:", e);
+      }
+    }
+
+    await saveStoredJob({
+      id: data.id,
+      title: payload.title,
+      type: payload.type,
+      category: payload.category,
+      location: payload.location,
+      description: payload.description,
+      requirements: payload.requirements,
+      deadline: payload.deadline ? payload.deadline.toISOString() : null,
+      open: payload.open,
+    });
+
+    return { ok: true };
+  } catch (err: any) {
+    return { ok: false, error: err?.message || "Failed to save opening." };
   }
-  return { ok: true };
 }
 
 export async function adminToggleJob(id: number, open: boolean): Promise<Ok> {
-  const admin = await requireAdmin();
-  await db.update(jobs).set({ open }).where(eq(jobs.id, id));
-  await logAudit(admin.uid, "JOB_TOGGLE", `Job #${id} → ${open ? "open" : "closed"}`);
-  return { ok: true };
+  try {
+    const admin = await requireAdmin();
+    if (pool) {
+      try {
+        await ensureDatabaseSchema();
+        await db.update(jobs).set({ open }).where(eq(jobs.id, id));
+        await logAudit(admin.uid, "JOB_TOGGLE", `Job #${id} → ${open ? "open" : "closed"}`);
+      } catch (e) {
+        console.warn("adminToggleJob DB notice:", e);
+      }
+    }
+    await toggleStoredJob(id, open);
+    return { ok: true };
+  } catch (err: any) {
+    return { ok: false, error: err?.message || "Failed to toggle status." };
+  }
 }
 
 export async function adminDeleteJob(id: number): Promise<Ok> {
-  const admin = await requireAdmin();
-  await db.delete(jobs).where(eq(jobs.id, id));
-  await logAudit(admin.uid, "JOB_DELETE", `Deleted job #${id}`);
-  return { ok: true };
+  try {
+    const admin = await requireAdmin();
+    if (pool) {
+      try {
+        await ensureDatabaseSchema();
+        await db.delete(jobs).where(eq(jobs.id, id));
+        await logAudit(admin.uid, "JOB_DELETE", `Deleted job #${id}`);
+      } catch (e) {
+        console.warn("adminDeleteJob DB notice:", e);
+      }
+    }
+    await deleteStoredJob(id);
+    return { ok: true };
+  } catch (err: any) {
+    return { ok: false, error: err?.message || "Failed to delete opening." };
+  }
 }
 
 /* -------------------------------- CONTENT -------------------------------- */

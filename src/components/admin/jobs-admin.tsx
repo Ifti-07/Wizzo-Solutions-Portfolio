@@ -27,28 +27,38 @@ interface JobFormProps {
 }
 
 function JobForm({ initial, id, error, onSuccess, onError }: JobFormProps) {
+  const [submitting, setSubmitting] = useState(false);
+
   return (
     <form
       className="grid gap-4 sm:grid-cols-2"
       onSubmit={async (e) => {
         e.preventDefault();
+        setSubmitting(true);
+        onError("");
         const fd = new FormData(e.currentTarget);
-        const r = await adminSaveJob({
-          id,
-          title: String(fd.get("title")),
-          type: String(fd.get("type")) as Job["type"],
-          category: String(fd.get("category")),
-          location: String(fd.get("location")),
-          description: String(fd.get("description")),
-          requirements: String(fd.get("requirements")),
-          deadline: String(fd.get("deadline") || "") || undefined,
-          open: fd.get("open") !== null,
-        });
-        if (!r.ok) {
-          onError(r.error ?? "Failed");
-          return;
+        try {
+          const r = await adminSaveJob({
+            id,
+            title: String(fd.get("title")),
+            type: String(fd.get("type")) as Job["type"],
+            category: String(fd.get("category")),
+            location: String(fd.get("location")),
+            description: String(fd.get("description")),
+            requirements: String(fd.get("requirements")),
+            deadline: String(fd.get("deadline") || "") || undefined,
+            open: fd.get("open") !== null,
+          });
+          if (!r.ok) {
+            onError(r.error ?? "Failed to save opening.");
+            setSubmitting(false);
+            return;
+          }
+          onSuccess();
+        } catch (err: any) {
+          onError(err?.message || "Failed to save opening. Please try again.");
+          setSubmitting(false);
         }
-        onSuccess();
       }}
     >
       <Field label="Job Title *"><input name="title" required className={inputCls} defaultValue={initial.title} /></Field>
@@ -81,7 +91,9 @@ function JobForm({ initial, id, error, onSuccess, onError }: JobFormProps) {
       </div>
       <div className="flex items-center justify-between sm:col-span-2">
         <p className="text-xs font-semibold text-red-500">{error}</p>
-        <AdminButton type="submit" className="!px-6 !py-2.5">{id ? "Save Changes" : "Publish Opening"}</AdminButton>
+        <AdminButton type="submit" disabled={submitting} className="!px-6 !py-2.5">
+          {submitting ? "Saving..." : id ? "Save Changes" : "Publish Opening"}
+        </AdminButton>
       </div>
     </form>
   );

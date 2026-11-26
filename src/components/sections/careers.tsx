@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import {
-  Briefcase,
   Code2,
   Palette,
   Cpu,
@@ -40,12 +39,7 @@ export function CareersSection() {
         <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           {/* Left Column: Narrative & Primary Action */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3.5 py-1 text-xs font-semibold text-electric backdrop-blur-sm">
-              <Briefcase className="h-3.5 w-3.5" />
-              <span>Careers at WIZZO</span>
-            </div>
-
-            <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+            <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
               Build Your Future With WIZZO
             </h2>
 

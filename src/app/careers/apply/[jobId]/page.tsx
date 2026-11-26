@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { db } from "@/db";
+import { db, pool } from "@/db";
 import { jobs } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { ensureDatabaseSchema } from "@/db/auto-migrate";
+import { getStoredJobs } from "@/lib/jobs-store";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ApplicationForm } from "@/components/careers/application-form";
@@ -26,12 +28,32 @@ export default async function ApplyPage({ params }: { params: Promise<{ jobId: s
   const { jobId } = await params;
   let job: JobItem | null = null;
   let allJobs: JobItem[] = [];
-  try {
-    const rows = await db.select().from(jobs).where(eq(jobs.open, true));
-    allJobs = rows.map(toJobItem);
-    job = allJobs.find((j) => j.id === Number(jobId)) ?? null;
-  } catch {
-    /* DB not ready */
+  if (pool) {
+    try {
+      await ensureDatabaseSchema();
+      const rows = await db.select().from(jobs).where(eq(jobs.open, true));
+      allJobs = rows.map(toJobItem);
+      job = allJobs.find((j) => j.id === Number(jobId)) ?? null;
+    } catch {
+      /* DB not ready */
+    }
+  }
+  if (!job) {
+    const fileJobs = await getStoredJobs();
+    const active = fileJobs.filter((j) => j.open).map((j) => ({
+      id: j.id,
+      title: j.title,
+      type: j.type,
+      category: j.category,
+      location: j.location,
+      description: j.description,
+      requirements: j.requirements,
+      deadline: j.deadline,
+    }));
+    if (allJobs.length === 0) {
+      allJobs = active;
+    }
+    job = active.find((j) => j.id === Number(jobId)) ?? null;
   }
   if (jobId !== "general" && !job && allJobs.length > 0) notFound();
 

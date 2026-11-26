@@ -6,15 +6,15 @@ import { site, coreServices } from "@/lib/site";
 import type { SiteRuntime } from "@/lib/settings";
 
 const navigationItems = [
-  { label: "Home", href: "#hero" },
-  { label: "About WIZZO", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Projects", href: "#projects" },
-  { label: "Our Process", href: "#process" },
-  { label: "Careers", href: "#careers" },
-  { label: "Insights", href: "#insights" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#hero" },
+  { label: "About WIZZO", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Solutions", href: "/#solutions" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Our Process", href: "/#process" },
+  { label: "Careers", href: "/careers" },
+  { label: "Insights", href: "/#insights" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Footer({ config }: { config?: SiteRuntime | null }) {
@@ -27,7 +27,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1.1fr_1.1fr]">
           {/* Brand Column */}
           <div>
-            <Link href="#hero" className="inline-block">
+            <Link href="/" className="inline-block">
               {/* Uses official Secondary Logo with title (onDark variant) */}
               <Logo onDark />
             </Link>
@@ -110,7 +110,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
               {coreServices.slice(0, 6).map((service) => (
                 <li key={service.id}>
                   <Link
-                    href="#services"
+                    href="/#services"
                     className="text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {service.title}
@@ -157,20 +157,20 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-7 text-xs text-white/50 sm:flex-row">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-6">
-            <a href="#about" className="transition-colors hover:text-white">
+            <Link href="/#about" className="transition-colors hover:text-white">
               About WIZZO
-            </a>
-            <a href="#services" className="transition-colors hover:text-white">
+            </Link>
+            <Link href="/#services" className="transition-colors hover:text-white">
               Services
-            </a>
-            <a href="#contact" className="transition-colors hover:text-white">
+            </Link>
+            <Link href="/#contact" className="transition-colors hover:text-white">
               Contact
-            </a>
+            </Link>
             <span className="text-white/20">|</span>
-            <Link href="#contact" className="transition-colors hover:text-white">
+            <Link href="/#contact" className="transition-colors hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="#contact" className="transition-colors hover:text-white">
+            <Link href="/#contact" className="transition-colors hover:text-white">
               Terms of Service
             </Link>
           </div>

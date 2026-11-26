@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
@@ -10,26 +11,45 @@ import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const navLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "Services", href: "#services" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Process", href: "#process" },
-  { label: "Projects", href: "#projects" },
-  { label: "Careers", href: "#careers" },
-  { label: "Contact", href: "#contact" },
+const navItems = [
+  { label: "Home", section: "hero", hash: "#hero" },
+  { label: "Services", section: "services", hash: "#services" },
+  { label: "Solutions", section: "solutions", hash: "#solutions" },
+  { label: "Process", section: "process", hash: "#process" },
+  { label: "Projects", section: "projects", hash: "#projects" },
+  { label: "Careers", section: "careers", hash: "#careers", pageHref: "/careers" },
+  { label: "Contact", section: "contact", hash: "#contact" },
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const isCareersPage = pathname?.startsWith("/careers");
+
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
+  const [activeSection, setActiveSection] = useState(isCareersPage ? "careers" : "hero");
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => {
+    const handleScroll = () => {
       setScrolled(window.scrollY > 24);
+    };
 
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isCareersPage) {
+      setActiveSection("careers");
+      return;
+    }
+
+    if (!isHomePage) return;
+
+    const onScroll = () => {
       const sections = ["hero", "services", "solutions", "process", "projects", "careers", "contact"];
       const scrollPos = window.scrollY + 140;
       for (const section of sections) {
@@ -48,7 +68,7 @@ export function Navbar() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isCareersPage, isHomePage]);
 
   useEffect(() => {
     if (open) {
@@ -60,6 +80,16 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  const getHref = (item: (typeof navItems)[number]) => {
+    if (isHomePage) {
+      return item.hash;
+    }
+    if (item.pageHref) {
+      return item.pageHref;
+    }
+    return `/${item.hash}`;
+  };
 
   return (
     <>
@@ -76,7 +106,7 @@ export function Navbar() {
         >
           {/* Brand Logo */}
           <Link
-            href="#hero"
+            href={isHomePage ? "#hero" : "/"}
             aria-label="WIZZO Solutions home"
             className="group flex items-center transition-opacity hover:opacity-95"
           >
@@ -85,13 +115,13 @@ export function Navbar() {
 
           {/* Desktop Navigation Links */}
           <ul className="hidden items-center gap-1 lg:flex">
-            {navLinks.map((item) => {
-              const target = item.href.replace("#", "");
-              const isActive = activeSection === target;
+            {navItems.map((item) => {
+              const href = getHref(item);
+              const isActive = activeSection === item.section;
               return (
                 <li key={item.label}>
                   <Link
-                    href={item.href}
+                    href={href}
                     className={cn(
                       "relative rounded-md px-3 py-2 text-xs sm:text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric",
                       isActive
@@ -119,7 +149,7 @@ export function Navbar() {
 
             {/* Single Primary Action Button with B2 button padding */}
             <Link
-              href="#contact"
+              href={isHomePage ? "#contact" : "/#contact"}
               className="hidden h-9 items-center gap-1.5 rounded-lg bg-electric px-4 text-xs sm:text-sm font-semibold text-white shadow-xs transition-all hover:bg-electric-dark active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-electric focus-visible:ring-offset-surface sm:inline-flex"
             >
               <span>Schedule Consultation</span>
@@ -169,8 +199,9 @@ export function Navbar() {
             <div className="flex flex-col justify-between h-full">
               {/* Staggered Link Entrance (B7: Moving up Spacing-300 (24px), stepped 60ms, capped at 400ms) */}
               <nav className="flex flex-col space-y-1">
-                {navLinks.map((item, idx) => {
+                {navItems.map((item, idx) => {
                   const delay = Math.min(idx * 0.06, 0.4);
+                  const href = getHref(item);
                   return (
                     <motion.div
                       key={item.label}
@@ -179,7 +210,7 @@ export function Navbar() {
                       transition={{ delay, duration: 0.35, ease: EASE }}
                     >
                       <Link
-                        href={item.href}
+                        href={href}
                         onClick={() => setOpen(false)}
                         className="group flex items-center justify-between border-b border-line/60 py-3 text-base font-medium text-ink transition-colors hover:text-electric"
                       >
@@ -196,7 +227,7 @@ export function Navbar() {
 
               <div className="pt-6">
                 <Link
-                  href="#contact"
+                  href={isHomePage ? "#contact" : "/#contact"}
                   onClick={() => setOpen(false)}
                   className="btn-primary flex w-full items-center justify-center gap-2 rounded-xl bg-electric py-3 text-sm font-semibold text-white shadow-md"
                 >

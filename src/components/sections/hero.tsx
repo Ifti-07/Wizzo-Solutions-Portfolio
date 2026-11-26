@@ -750,23 +750,12 @@ export function HeroSection() {
           {/* LEFT COLUMN: Outcome Headline, Copy, 3D Flip CTAs & Metrics       */}
           {/* ---------------------------------------------------------------- */}
           <div className="flex flex-col items-start text-left z-10 w-full max-w-full lg:max-w-[460px] xl:max-w-[510px] 2xl:max-w-[560px]">
-            {/* Eyebrow Pill */}
-            <motion.div
-              initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3 py-1 sm:px-3.5 sm:py-1.5 text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-ink-2 shadow-xs backdrop-blur-md"
-            >
-              <span className="size-2 rounded-full bg-electric animate-pulse" />
-              <span>Enterprise Digital Engineering</span>
-            </motion.div>
-
             {/* Display Headline */}
             <motion.h1
               initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-4 sm:mt-6 text-[28px] leading-[34px] sm:text-[36px] sm:leading-[42px] md:text-[40px] md:leading-[46px] lg:text-[38px] lg:leading-[44px] xl:text-[48px] xl:leading-[54px] 2xl:text-[54px] 2xl:leading-[60px] font-bold tracking-tight text-ink"
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[28px] leading-[34px] sm:text-[36px] sm:leading-[42px] md:text-[40px] md:leading-[46px] lg:text-[38px] lg:leading-[44px] xl:text-[48px] xl:leading-[54px] 2xl:text-[54px] 2xl:leading-[60px] font-bold tracking-tight text-ink"
             >
               <span className="block">Custom software &</span>
               <span className="block">intelligent workflows</span>

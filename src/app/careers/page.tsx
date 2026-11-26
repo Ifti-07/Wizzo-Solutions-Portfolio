@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/db";
+import { db, pool } from "@/db";
 import { jobs } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
+import { ensureDatabaseSchema } from "@/db/auto-migrate";
+import { getStoredJobs } from "@/lib/jobs-store";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { JobsList, type JobItem } from "@/components/careers/jobs-list";
 import { Reveal } from "@/components/ui/reveal";
-import { Briefcase, Rocket, Users2, Globe2, Sparkles } from "lucide-react";
+import { Briefcase, Rocket, Users2, Globe2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Careers at WIZZO | Technology & Digital Solutions",
@@ -25,9 +27,30 @@ const perks = [
 ];
 
 async function getJobs(): Promise<JobItem[]> {
-  try {
-    const rows = await db.select().from(jobs).where(eq(jobs.open, true)).orderBy(desc(jobs.createdAt));
-    return rows.map((j) => ({
+  if (pool) {
+    try {
+      await ensureDatabaseSchema();
+      const rows = await db.select().from(jobs).where(eq(jobs.open, true)).orderBy(desc(jobs.createdAt));
+      if (rows && rows.length > 0) {
+        return rows.map((j) => ({
+          id: j.id,
+          title: j.title,
+          type: j.type,
+          category: j.category,
+          location: j.location,
+          description: j.description,
+          requirements: j.requirements,
+          deadline: j.deadline ? j.deadline.toISOString() : null,
+        }));
+      }
+    } catch {
+      /* Fallback to stored jobs */
+    }
+  }
+  const fileJobs = await getStoredJobs();
+  return fileJobs
+    .filter((j) => j.open)
+    .map((j) => ({
       id: j.id,
       title: j.title,
       type: j.type,
@@ -35,11 +58,8 @@ async function getJobs(): Promise<JobItem[]> {
       location: j.location,
       description: j.description,
       requirements: j.requirements,
-      deadline: j.deadline ? j.deadline.toISOString() : null,
+      deadline: j.deadline,
     }));
-  } catch {
-    return [];
-  }
 }
 
 export default async function CareersPage() {
@@ -58,21 +78,16 @@ export default async function CareersPage() {
           </div>
           <div className="relative mx-auto max-w-7xl px-5 text-center md:px-8">
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-electric shadow-sm">
-                <Sparkles size={13} /> Careers at WIZZO
-              </span>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h1 className="font-display mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.05] text-ink sm:text-6xl">
+              <h1 className="font-display mx-auto max-w-3xl text-4xl font-bold leading-[1.05] text-ink sm:text-6xl">
                 Build Your Future <span className="text-gradient">With WIZZO</span>
               </h1>
             </Reveal>
-            <Reveal delay={0.2}>
+            <Reveal delay={0.1}>
               <p className="mx-auto mt-6 max-w-2xl text-ink-2 md:text-lg">
                 We&apos;re always interested in connecting with passionate developers, designers, and creative thinkers who want to build meaningful digital experiences and create real business value.
               </p>
             </Reveal>
-            <Reveal delay={0.3} className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Reveal delay={0.2} className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a
                 href="#openings"
                 className="btn-primary inline-flex items-center gap-2 rounded-full bg-electric px-7 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_-12px_var(--glow)] transition-transform hover:scale-[1.04]"

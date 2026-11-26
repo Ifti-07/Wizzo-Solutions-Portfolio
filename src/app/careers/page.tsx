@@ -7,21 +7,21 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { JobsList, type JobItem } from "@/components/careers/jobs-list";
 import { Reveal } from "@/components/ui/reveal";
-import { GraduationCap, Rocket, Users2, Globe2, Sparkles } from "lucide-react";
+import { Briefcase, Rocket, Users2, Globe2, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Careers & Internship Program",
+  title: "Careers at WIZZO | Technology & Digital Solutions",
   description:
-    "Join Wizzo Solutions — explore internship and full-time opportunities and work on international technology projects.",
+    "Join WIZZO Solutions — connect with our team of developers, designers, and creative thinkers building meaningful digital experiences.",
 };
 
 export const dynamic = "force-dynamic";
 
 const perks = [
-  { icon: GraduationCap, title: "Structured Mentorship", text: "Every intern is paired with an experienced mentor and a clear learning path." },
-  { icon: Globe2, title: "International Exposure", text: "Contribute to real projects for clients across Asia and beyond." },
-  { icon: Rocket, title: "Fast Growth", text: "Outstanding interns are offered full-time positions and certificates." },
-  { icon: Users2, title: "Modern Culture", text: "Flexible, collaborative and engineering-driven environment." },
+  { icon: Globe2, title: "High-Impact Projects", text: "Contribute to enterprise-grade web applications and meaningful digital solutions." },
+  { icon: Rocket, title: "Continuous Growth", text: "Engage in collaborative code reviews, technical challenges, and modern toolchains." },
+  { icon: Users2, title: "Modern Culture", text: "Flexible, engineering-driven environment focused on curiosity and mutual respect." },
+  { icon: Briefcase, title: "True Ownership", text: "Take ownership of your architectural decisions and create real business value." },
 ];
 
 async function getJobs(): Promise<JobItem[]> {
@@ -59,19 +59,17 @@ export default async function CareersPage() {
           <div className="relative mx-auto max-w-7xl px-5 text-center md:px-8">
             <Reveal>
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-electric shadow-sm">
-                <Sparkles size={13} /> Careers & Internship Program
+                <Sparkles size={13} /> Careers at WIZZO
               </span>
             </Reveal>
             <Reveal delay={0.1}>
               <h1 className="font-display mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.05] text-ink sm:text-6xl">
-                Build the Future <span className="text-gradient">With Us</span>
+                Build Your Future <span className="text-gradient">With WIZZO</span>
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mx-auto mt-6 max-w-2xl text-ink-2 md:text-lg">
-                Wizzo Solutions is hiring interns and full-time professionals. Work on real
-                international projects, grow your skills and become part of a global technology
-                team.
+                We&apos;re always interested in connecting with passionate developers, designers, and creative thinkers who want to build meaningful digital experiences and create real business value.
               </p>
             </Reveal>
             <Reveal delay={0.3} className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -81,10 +79,12 @@ export default async function CareersPage() {
               >
                 Browse {jobList.length} Open Position{jobList.length === 1 ? "" : "s"}
               </a>
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink-2">
-                <GraduationCap size={15} className="text-electric" />
-                {internships.length} Internship{internships.length === 1 ? "" : "s"} Available
-              </span>
+              <Link
+                href="/#contact"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink-2 hover:border-electric hover:text-electric transition-colors"
+              >
+                Send General Application
+              </Link>
             </Reveal>
           </div>
         </section>

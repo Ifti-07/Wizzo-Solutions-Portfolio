@@ -10,7 +10,7 @@ import { WhyUsSection } from "@/components/sections/why-us";
 import { ProjectsSection } from "@/components/sections/projects";
 import { ProcessSection } from "@/components/sections/process";
 import { TestimonialsSection } from "@/components/sections/testimonials";
-import { InternshipSection } from "@/components/sections/internship";
+import { CareersSection } from "@/components/sections/careers";
 import { InsightsSection } from "@/components/sections/insights";
 import { ContactSection } from "@/components/sections/contact";
 import { getSiteRuntime } from "@/lib/settings";
@@ -54,8 +54,8 @@ export default async function HomePage() {
         {/* 10 — SOCIAL PROOF & TESTIMONIALS (A2 Item 9) */}
         <TestimonialsSection />
 
-        {/* 12 — INTERNSHIP & CAREERS TRACK */}
-        <InternshipSection />
+        {/* 12 — CAREERS AT WIZZO */}
+        <CareersSection />
 
         {/* 13 — TECHNICAL INSIGHTS */}
         <InsightsSection />

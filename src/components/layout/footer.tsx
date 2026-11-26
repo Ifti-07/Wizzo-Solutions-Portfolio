@@ -12,7 +12,7 @@ const navigationItems = [
   { label: "Solutions", href: "#solutions" },
   { label: "Projects", href: "#projects" },
   { label: "Our Process", href: "#process" },
-  { label: "Internship Program", href: "#internship" },
+  { label: "Careers", href: "#careers" },
   { label: "Insights", href: "#insights" },
   { label: "Contact", href: "#contact" },
 ];

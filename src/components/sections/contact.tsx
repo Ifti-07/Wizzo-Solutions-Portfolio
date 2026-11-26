@@ -14,7 +14,7 @@ const projectTypes = [
   "API Development & Integration",
   "Technical Consulting & Architecture",
   "Software Maintenance & Support",
-  "Internship Program Inquiry",
+  "Careers & Talent Inquiry",
   "Other Project Inquiries",
 ];
 

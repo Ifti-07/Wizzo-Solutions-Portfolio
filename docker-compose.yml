@@ -1,0 +1,38 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wizzo_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://wizzo_user:wizzo_secure_pass@db:5432/wizzo_db
+      - SESSION_SECRET=change-this-in-production-to-a-very-long-random-string
+      - NEXT_PUBLIC_SITE_URL=https://wizzosolutions.com
+      - NODE_ENV=production
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    container_name: wizzo_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wizzo_user
+      POSTGRES_PASSWORD: wizzo_secure_pass
+      POSTGRES_DB: wizzo_db
+    volumes:
+      - wizzo_pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wizzo_user -d wizzo_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  wizzo_pg_data:

@@ -7,7 +7,12 @@ const globalForDb = globalThis as typeof globalThis & {
   __wizzoPostgresPool?: Pool;
 };
 
-export const pool = databaseUrl
+const isPostgresUrl = Boolean(
+  databaseUrl &&
+    (databaseUrl.startsWith("postgres://") || databaseUrl.startsWith("postgresql://"))
+);
+
+export const pool = isPostgresUrl && databaseUrl
   ? globalForDb.__wizzoPostgresPool ??
     new Pool({
       connectionString: databaseUrl,

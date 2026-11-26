@@ -56,11 +56,23 @@ export async function submitApplication(_prev: ActionResult | null, formData: Fo
       if (cv.type && !allowed.includes(cv.type))
         return { ok: false, error: "CV must be a PDF, DOC or DOCX file." };
       const safe = cv.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const dir = path.join(process.cwd(), "uploads", "cv");
-      await mkdir(dir, { recursive: true });
       const fileName = `${Date.now()}-${safe}`;
-      await writeFile(path.join(dir, fileName), Buffer.from(await cv.arrayBuffer()));
-      cvPath = fileName;
+      try {
+        const dir = path.join(process.cwd(), "uploads", "cv");
+        await mkdir(dir, { recursive: true });
+        await writeFile(path.join(dir, fileName), Buffer.from(await cv.arrayBuffer()));
+        cvPath = fileName;
+      } catch (err: unknown) {
+        try {
+          const tmpDir = path.join("/tmp", "uploads", "cv");
+          await mkdir(tmpDir, { recursive: true });
+          await writeFile(path.join(tmpDir, fileName), Buffer.from(await cv.arrayBuffer()));
+          cvPath = fileName;
+        } catch {
+          console.warn("Could not persist CV to local storage:", err);
+          cvPath = `[unpersisted]-${safe}`;
+        }
+      }
     }
 
     const jobIdRaw = String(formData.get("jobId") || "");

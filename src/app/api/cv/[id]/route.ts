@@ -22,21 +22,35 @@ export async function GET(
   if (!app?.cvPath) return NextResponse.json({ error: "No CV found" }, { status: 404 });
 
   const safeName = path.basename(app.cvPath);
-  const filePath = path.join(process.cwd(), "uploads", "cv", safeName);
-  try {
-    const file = await readFile(filePath);
-    const ext = safeName.split(".").pop()?.toLowerCase() ?? "pdf";
-    const mime =
-      ext === "pdf" ? "application/pdf"
-      : ext === "docx" ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-      : "application/msword";
-    return new NextResponse(new Uint8Array(file), {
-      headers: {
-        "Content-Type": mime,
-        "Content-Disposition": `attachment; filename="${app.fullName.replace(/\s+/g, "_")}_CV.${ext}"`,
-      },
-    });
-  } catch {
+  const candidatePaths = [
+    path.join(process.cwd(), "uploads", "cv", safeName),
+    path.join("/tmp", "uploads", "cv", safeName),
+  ];
+
+  let file: Buffer | null = null;
+  for (const fp of candidatePaths) {
+    try {
+      file = await readFile(fp);
+      break;
+    } catch {
+      continue;
+    }
+  }
+
+  if (!file) {
     return NextResponse.json({ error: "File not found" }, { status: 404 });
   }
+
+  const ext = safeName.split(".").pop()?.toLowerCase() ?? "pdf";
+  const mime =
+    ext === "pdf" ? "application/pdf"
+    : ext === "docx" ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    : "application/msword";
+
+  return new NextResponse(new Uint8Array(file), {
+    headers: {
+      "Content-Type": mime,
+      "Content-Disposition": `attachment; filename="${app.fullName.replace(/\s+/g, "_")}_CV.${ext}"`,
+    },
+  });
 }

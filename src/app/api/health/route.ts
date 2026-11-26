@@ -1,6 +1,27 @@
+import { pool } from "@/db";
+
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return Response.json({ ok: true, status: "healthy", database: "standalone" });
+  let dbStatus = "standalone";
+  if (pool) {
+    try {
+      await pool.query("SELECT 1");
+      dbStatus = "connected";
+    } catch {
+      dbStatus = "error";
+    }
+  }
+
+  return Response.json(
+    {
+      ok: dbStatus !== "error",
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      database: dbStatus,
+      env: process.env.NODE_ENV,
+    },
+    { status: dbStatus === "error" ? 503 : 200 }
+  );
 }
 

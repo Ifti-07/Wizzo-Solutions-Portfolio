@@ -21,25 +21,6 @@ interface AmbientNode {
   colorLight: string;
 }
 
-interface SubtleWave {
-  baseYPercent: number;
-  amplitude: number;
-  frequency: number;
-  speed: number;
-  phaseOffset: number;
-  direction: 1 | -1;
-  colorDark: string;
-  colorLight: string;
-  lineWidth: number;
-}
-
-interface AmbientDataPoint {
-  waveIndex: number;
-  progress: number;
-  speed: number;
-  size: number;
-}
-
 export function AmbientBackground({ className = "" }: AmbientBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDark, setIsDark] = useState(false);
@@ -149,53 +130,6 @@ export function AmbientBackground({ className = "" }: AmbientBackgroundProps) {
       },
     ];
 
-    // 2. Continuous subtle background data streams (persisting across the entire site)
-    const subtleWaves: SubtleWave[] = [
-      {
-        baseYPercent: 0.45,
-        amplitude: 24,
-        frequency: 0.0012,
-        speed: 0.00028,
-        phaseOffset: 0.8,
-        direction: 1,
-        colorDark: "rgba(7, 85, 245, 0.14)",
-        colorLight: "rgba(7, 85, 245, 0.08)",
-        lineWidth: 1.0,
-      },
-      {
-        baseYPercent: 0.78,
-        amplitude: 20,
-        frequency: 0.0015,
-        speed: 0.00024,
-        phaseOffset: 2.4,
-        direction: -1,
-        colorDark: "rgba(7, 85, 245, 0.12)",
-        colorLight: "rgba(7, 85, 245, 0.07)",
-        lineWidth: 0.9,
-      },
-    ];
-
-    // 3. Small luminous points traveling along subtle background streams
-    const dataPoints: AmbientDataPoint[] = [
-      { waveIndex: 0, progress: 0.15, speed: 0.00018, size: 1.8 },
-      { waveIndex: 0, progress: 0.65, speed: 0.00022, size: 1.6 },
-      { waveIndex: 1, progress: 0.38, speed: 0.00019, size: 1.9 },
-      { waveIndex: 1, progress: 0.85, speed: 0.00021, size: 1.5 },
-    ];
-
-    const computeSubtleY = (
-      x: number,
-      time: number,
-      w: SubtleWave,
-      parallaxY: number
-    ): number => {
-      const baseY = height * w.baseYPercent - parallaxY;
-      const t = time * w.speed * w.direction + w.phaseOffset;
-      const h1 = Math.sin(x * w.frequency + t) * w.amplitude;
-      const h2 = Math.cos(x * w.frequency * 1.6 - t * 0.8) * (w.amplitude * 0.4);
-      return baseY + h1 + h2;
-    };
-
     const render = (time: number) => {
       if (!ctx || width === 0 || height === 0) return;
 
@@ -245,83 +179,6 @@ export function AmbientBackground({ className = "" }: AmbientBackgroundProps) {
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, width, height);
       });
-
-      // --- 2. RENDER SUBTLE CONTINUOUS DATA WAVE STREAMS ---
-      subtleWaves.forEach((w) => {
-        const strokeColor = isDark ? w.colorDark : w.colorLight;
-        const waveBreath = 0.88 + 0.12 * Math.sin(time * 0.00035 + w.phaseOffset);
-
-        ctx.beginPath();
-        const grad = ctx.createLinearGradient(0, 0, width, 0);
-        grad.addColorStop(0, "rgba(0,0,0,0)");
-        grad.addColorStop(0.12, strokeColor);
-        grad.addColorStop(0.88, strokeColor);
-        grad.addColorStop(1, "rgba(0,0,0,0)");
-
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = w.lineWidth;
-        ctx.globalAlpha = waveBreath;
-
-        const stepX = Math.max(6, Math.floor(width / 160));
-        let first = true;
-
-        for (let x = -20; x <= width + 20; x += stepX) {
-          const y = computeSubtleY(x, time, w, parallaxOffsetY);
-          if (first) {
-            ctx.moveTo(x, y);
-            first = false;
-          } else {
-            ctx.lineTo(x, y);
-          }
-        }
-        ctx.stroke();
-      });
-
-      ctx.globalAlpha = 1.0;
-
-      // --- 3. RENDER SMALL LUMINOUS DATA POINTS ---
-      dataPoints.forEach((p) => {
-        if (!prefersReducedMotion) {
-          p.progress += p.speed;
-          if (p.progress > 1.0) p.progress = 0;
-        }
-
-        const w = subtleWaves[p.waveIndex];
-        const currentX = p.progress * (width + 100) - 50;
-        const currentY = computeSubtleY(currentX, time, w, parallaxOffsetY);
-
-        if (currentX >= 0 && currentX <= width && currentY >= 0 && currentY <= height) {
-          // Delicate halo
-          const halo = ctx.createRadialGradient(
-            currentX,
-            currentY,
-            0,
-            currentX,
-            currentY,
-            p.size * 3.5
-          );
-          halo.addColorStop(
-            0,
-            isDark ? "rgba(96, 165, 250, 0.35)" : "rgba(7, 85, 245, 0.22)"
-          );
-          halo.addColorStop(1, "transparent");
-
-          ctx.beginPath();
-          ctx.arc(currentX, currentY, p.size * 3.5, 0, Math.PI * 2);
-          ctx.fillStyle = halo;
-          ctx.globalAlpha = 0.85;
-          ctx.fill();
-
-          // Crisp core point
-          ctx.beginPath();
-          ctx.arc(currentX, currentY, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? "#ffffff" : "#0755F5";
-          ctx.globalAlpha = 0.9;
-          ctx.fill();
-        }
-      });
-
-      ctx.globalAlpha = 1.0;
     };
 
     const loop = (currentTime: number) => {

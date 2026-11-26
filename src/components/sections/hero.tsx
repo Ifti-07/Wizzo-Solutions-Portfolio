@@ -33,7 +33,7 @@ const XR = 0.5; // sin(30 deg)
 const CENTER_X = 500;
 const CENTER_Y = 500;
 const COMPRESS_Y = 0.57;
-const RING_RADII = [390, 520];
+const RING_RADII = [270, 370];
 
 // Slabs definitions
 const SLAB_TE = { half: 168, radius: 40, top: 475, depth: 34 };
@@ -730,19 +730,19 @@ export function HeroSection() {
           className="absolute right-[5%] top-1/2 -translate-y-1/2 size-[650px] rounded-full blur-[110px] opacity-25 dark:opacity-40"
           style={{ background: "radial-gradient(circle, var(--electric) 0%, transparent 70%)" }}
         />
-        {/* Floor perspective grid lines */}
-        <svg
-          viewBox="0 0 1440 900"
-          className="absolute inset-0 size-full stroke-[var(--n3-grid-line)] opacity-60 dark:opacity-40"
-          aria-hidden="true"
-        >
-          <defs>
-            <pattern id="n3-floor-grid" width="48" height="48" patternUnits="userSpaceOnUse">
-              <path d="M 48 0 L 0 48 M 0 0 L 48 48" fill="none" strokeWidth="0.8" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#n3-floor-grid)" />
-        </svg>
+        {/* Full-bleed seamless diamond grid with smooth radial falloff */}
+        <div
+          className="absolute inset-0 size-full opacity-30 dark:opacity-15"
+          style={{
+            backgroundImage: `
+              linear-gradient(45deg, var(--n3-grid-line, var(--line)) 1px, transparent 1px),
+              linear-gradient(-45deg, var(--n3-grid-line, var(--line)) 1px, transparent 1px)
+            `,
+            backgroundSize: "48px 48px",
+            maskImage: "radial-gradient(ellipse 75% 65% at 50% 45%, black 15%, transparent 80%)",
+            WebkitMaskImage: "radial-gradient(ellipse 75% 65% at 50% 45%, black 15%, transparent 80%)",
+          }}
+        />
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -909,14 +909,14 @@ export function HeroSection() {
                     </linearGradient>
                   </defs>
                   {/* Axis lines */}
-                  <rect x={CENTER_X - 0.5} y="110" width="1" height="780" fill="url(#n3-axis-v)" />
-                  <rect x="70" y={CENTER_Y - 0.5} width="860" height="1" fill="url(#n3-axis-h)" />
+                  <rect x={CENTER_X - 0.5} y="150" width="1" height="700" fill="url(#n3-axis-v)" />
+                  <rect x="150" y={CENTER_Y - 0.5} width="700" height="1" fill="url(#n3-axis-h)" />
                   {/* Crosshairs */}
                   {([
-                    [212, 292],
-                    [790, 690],
-                    [860, 430],
-                    [150, 560],
+                    [240, 310],
+                    [760, 690],
+                    [760, 310],
+                    [240, 690],
                   ] as const).map(([cx, cy]) => (
                     <path
                       key={`${cx}-${cy}`}

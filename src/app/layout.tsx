@@ -19,6 +19,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://wizzosolutions.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: `${site.name} — Corporate Technology & Digital Engineering`,
     template: `%s | ${site.name}`,
@@ -61,6 +65,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: site.name,
     locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — Corporate Technology & Digital Engineering`,
+    description: site.heroSubtitle,
   },
   robots: { index: true, follow: true },
 };

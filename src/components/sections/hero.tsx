@@ -19,7 +19,6 @@ import {
   Star,
   ShieldCheck,
   ArrowRight,
-  Play,
   CheckCircle2,
   Cpu,
 } from "lucide-react";
@@ -809,16 +808,6 @@ export function HeroSection() {
                   </span>
                 </span>
               </Link>
-
-              {/* Secondary Button / Interactive Trigger */}
-              <button
-                type="button"
-                onClick={() => setIsExploded((prev) => !prev)}
-                className="inline-flex h-11 sm:h-12 items-center justify-center gap-2 rounded-lg border border-line bg-surface/70 px-4 sm:px-5 text-sm font-medium text-ink transition-colors hover:border-electric hover:bg-surface hover:text-electric focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric w-full sm:w-auto whitespace-nowrap shrink-0"
-              >
-                <Play size={14} className={isExploded ? "fill-electric text-electric" : "text-ink-2"} />
-                <span>{isExploded ? "Reset architecture view" : "Inspect core system"}</span>
-              </button>
             </motion.div>
 
             {/* Key Outcomes / Badges */}
@@ -1073,16 +1062,6 @@ export function HeroSection() {
                     />
                   ))}
                 </ul>
-
-                {/* Interactive Click / Hover Prompt pill */}
-                <div
-                  className={cn(
-                    "pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-line bg-surface/90 px-3.5 py-1 text-[11px] font-semibold text-ink-2 shadow-xs transition-opacity duration-300 backdrop-blur-md",
-                    isExploded ? "opacity-0" : "opacity-100"
-                  )}
-                >
-                  <span>Hover to expand architecture</span>
-                </div>
               </motion.div>
             </div>
           </div>

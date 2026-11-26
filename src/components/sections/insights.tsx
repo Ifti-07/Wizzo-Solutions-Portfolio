@@ -8,13 +8,11 @@ export function InsightsSection() {
     <section id="insights" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         {/* Header */}
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
-              Practical Technology Insights &amp; Architectural Thinking
-            </h2>
-          </div>
-          <p className="max-w-md text-sm leading-relaxed text-ink-2">
+        <div className="max-w-2xl">
+          <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+            Practical Technology Insights &amp; Architectural Thinking
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-ink-2 sm:text-base">
             Perspectives from our team on modern web platforms, practical automation, and software
             engineering decisions that protect business velocity.
           </p>

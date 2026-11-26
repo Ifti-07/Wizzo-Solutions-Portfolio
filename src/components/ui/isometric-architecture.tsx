@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Shield, Code2, Database, Network, Cpu, Layers } from "lucide-react";
+import { Shield, Database, Network } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function IsometricArchitecture({ className = "" }: { className?: string }) {
@@ -27,7 +27,7 @@ export function IsometricArchitecture({ className = "" }: { className?: string }
     <div className={cn("relative mx-auto w-full max-w-[580px] select-none", className)}>
       {/* Top Header Label */}
       <div className="mb-2 flex items-center justify-center px-2">
-        <span className="font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-3">
+        <span className="font-mono text-[10.5px] sm:text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-3 dark:text-slate-300">
           System Architecture
         </span>
       </div>
@@ -75,10 +75,10 @@ export function IsometricArchitecture({ className = "" }: { className?: string }
               )}
             >
               <div className="flex items-center justify-between border-b border-line/60 pb-2">
-                <span className="font-mono text-[9px] uppercase tracking-wider text-ink-3">
+                <span className="font-mono text-[9.5px] font-semibold uppercase tracking-wider text-ink-2 dark:text-slate-200">
                   04 / Data Store
                 </span>
-                <Database size={13} className="text-ink-3" />
+                <Database size={13} className="text-ink-3 dark:text-slate-400" />
               </div>
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {[1, 2, 3].map((col) => (
@@ -92,7 +92,7 @@ export function IsometricArchitecture({ className = "" }: { className?: string }
                   </div>
                 ))}
               </div>
-              <div className="mt-3 flex items-center justify-between text-[8px] font-mono text-ink-3">
+              <div className="mt-3 flex items-center justify-between text-[9px] font-mono text-ink-2 dark:text-slate-300">
                 <span>PostgreSQL • ACID</span>
                 <span>Encrypted</span>
               </div>
@@ -115,21 +115,21 @@ export function IsometricArchitecture({ className = "" }: { className?: string }
               )}
             >
               <div className="flex items-center justify-between border-b border-line/60 pb-2">
-                <span className="font-mono text-[9px] uppercase tracking-wider text-ink-3">
+                <span className="font-mono text-[9.5px] font-semibold uppercase tracking-wider text-ink-2 dark:text-slate-200">
                   03 / API Gateway
                 </span>
-                <span className="font-mono text-[9px] text-electric">REST / Webhooks</span>
+                <span className="font-mono text-[9.5px] font-semibold text-electric">REST / Webhooks</span>
               </div>
               <div className="mt-3 space-y-1.5">
-                <div className="flex items-center justify-between rounded-md border border-line/50 bg-bg/40 px-2.5 py-1 text-[9px] font-mono">
+                <div className="flex items-center justify-between rounded-md border border-line/50 bg-bg/40 px-2.5 py-1 text-[9.5px] font-mono">
                   <span className="text-electric font-semibold">POST</span>
-                  <span className="text-ink-3">/v1/events/dispatch</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <span className="text-ink-2 dark:text-slate-300 font-medium">/v1/events/dispatch</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 </div>
-                <div className="flex items-center justify-between rounded-md border border-line/50 bg-bg/40 px-2.5 py-1 text-[9px] font-mono">
-                  <span className="text-sky-500 font-semibold">GET</span>
-                  <span className="text-ink-3">/v1/sync/state</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <div className="flex items-center justify-between rounded-md border border-line/50 bg-bg/40 px-2.5 py-1 text-[9.5px] font-mono">
+                  <span className="text-sky-400 font-semibold">GET</span>
+                  <span className="text-ink-2 dark:text-slate-300 font-medium">/v1/sync/state</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 </div>
               </div>
             </motion.div>
@@ -151,24 +151,24 @@ export function IsometricArchitecture({ className = "" }: { className?: string }
               )}
             >
               <div className="flex items-center justify-between border-b border-white/20 pb-2">
-                <span className="font-mono text-[9px] uppercase tracking-wider text-white/90">
+                <span className="font-mono text-[9.5px] uppercase tracking-wider text-white font-semibold">
                   02 / Active Engine
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[8px] font-semibold text-white">
+                <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-0.5 text-[8.5px] font-semibold text-white">
                   Event driven
                 </span>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2">
-                <div className="rounded-lg bg-black/15 p-2">
-                  <p className="font-mono text-[8px] text-white/70">Task Queues</p>
-                  <p className="mt-0.5 font-mono text-[11px] font-bold">1.2ms latency</p>
+                <div className="rounded-lg bg-black/20 p-2">
+                  <p className="font-mono text-[9px] font-medium text-white/85">Task Queues</p>
+                  <p className="mt-0.5 font-mono text-[11px] font-bold text-white">1.2ms latency</p>
                 </div>
-                <div className="rounded-lg bg-black/15 p-2">
-                  <p className="font-mono text-[8px] text-white/70">Pipelines</p>
-                  <p className="mt-0.5 font-mono text-[11px] font-bold">Automated</p>
+                <div className="rounded-lg bg-black/20 p-2">
+                  <p className="font-mono text-[9px] font-medium text-white/85">Pipelines</p>
+                  <p className="mt-0.5 font-mono text-[11px] font-bold text-white">Automated</p>
                 </div>
               </div>
-              <div className="mt-2.5 flex items-center justify-between text-[8px] font-mono text-white/80">
+              <div className="mt-2.5 flex items-center justify-between text-[9px] font-mono text-white/90">
                 <span>Async workers: 16</span>
                 <span>Health: 100%</span>
               </div>
@@ -197,7 +197,7 @@ export function IsometricArchitecture({ className = "" }: { className?: string }
                   <span className="h-2 w-2 rounded-full bg-amber-400" />
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
                 </div>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-ink-3">
+                <span className="font-mono text-[9.5px] font-semibold uppercase tracking-wider text-ink-2 dark:text-slate-200">
                   01 / Web Interface
                 </span>
               </div>
@@ -229,12 +229,12 @@ export function IsometricArchitecture({ className = "" }: { className?: string }
       </div>
 
       {/* Bottom Security & Metadata Line */}
-      <div className="mt-2 flex items-center justify-between px-3 text-[11px] text-ink-3">
+      <div className="mt-2 flex items-center justify-between px-3 text-xs text-ink-2 dark:text-slate-300">
         <span className="flex items-center gap-1.5 font-medium">
           <Shield size={14} className="text-electric" />
           TLS encrypted
         </span>
-        <span className="font-mono text-[10px]">4 service layers</span>
+        <span className="font-mono text-[10.5px]">4 service layers</span>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 "use client";
 
-import { CheckCircle, Target, MessageSquare, Heart, Globe, ShieldAlert, Sparkles, ArrowRight } from "lucide-react";
+import { Target, Layers, MessageSquare, Heart, Globe, Handshake, ArrowRight } from "lucide-react";
 import { whyChooseReasons } from "@/lib/site";
 import Link from "next/link";
 
-const iconList = [Target, CheckCircle, MessageSquare, Heart, Globe, ShieldAlert];
+const iconList = [Target, Layers, MessageSquare, Heart, Globe, Handshake];
 
 export function WhyUsSection() {
   return (
@@ -24,7 +24,7 @@ export function WhyUsSection() {
         {/* Narrative Comparison & Principles (Visual Storytelling Layout) */}
         <div className="mt-14 grid gap-8 lg:grid-cols-3">
           {whyChooseReasons.map((reason, idx) => {
-            const Icon = iconList[idx] || CheckCircle;
+            const Icon = iconList[idx] || Target;
             return (
               <div
                 key={reason.number}

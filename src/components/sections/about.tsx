@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Globe, MapPin, Compass, ShieldCheck, HeartHandshake, Sparkles, CheckCircle2 } from "lucide-react";
+import { Globe, MapPin, Compass, HeartHandshake } from "lucide-react";
 import { site } from "@/lib/site";
 import { Logo } from "@/components/ui/logo";
 

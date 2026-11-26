@@ -1,9 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { GraduationCap, BookOpen, Users, Award, CheckCircle2, ArrowRight, Laptop, Briefcase } from "lucide-react";
+import {
+  GraduationCap,
+  BookOpen,
+  Users,
+  Award,
+  ArrowRight,
+  Briefcase,
+  Code2,
+  Layout,
+  Database,
+  Palette,
+  CheckCheck,
+  Bot,
+  ShieldCheck,
+  Network,
+  TrendingUp,
+  Megaphone,
+  type LucideIcon,
+} from "lucide-react";
 import { internshipTracks, type InternshipTrack } from "@/lib/site";
 import Link from "next/link";
+
+const trackIconMap: Record<string, LucideIcon> = {
+  Code2,
+  Layout,
+  Database,
+  Palette,
+  CheckCheck,
+  Bot,
+  ShieldCheck,
+  Network,
+  TrendingUp,
+  Megaphone,
+};
 
 export function InternshipSection() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -43,7 +74,7 @@ export function InternshipSection() {
 
           <div className="rounded-2xl border border-line bg-surface p-5">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric">
-              <Laptop size={19} />
+              <Briefcase size={19} />
             </span>
             <h4 className="font-display mt-4 font-bold text-ink">Real Project Workflows</h4>
             <p className="mt-1 text-xs text-ink-2">
@@ -103,52 +134,60 @@ export function InternshipSection() {
 
         {/* Tracks Grid */}
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredTracks.map((track) => (
-            <div
-              key={track.id}
-              className="glass-card flex flex-col justify-between rounded-3xl p-6 transition-all hover:shadow-md"
-            >
-              <div>
-                <div className="flex items-center justify-between border-b border-line pb-3">
-                  <span className="rounded-full bg-electric-soft px-2.5 py-0.5 text-[10px] font-mono font-semibold text-electric">
-                    {track.category}
-                  </span>
-                  <span className="text-[11px] text-ink-3">
-                    {track.duration}
-                  </span>
-                </div>
-
-                <h4 className="font-display mt-4 text-lg font-bold text-ink">
-                  {track.title}
-                </h4>
-
-                <p className="mt-2 text-xs leading-relaxed text-ink-2">
-                  {track.description}
-                </p>
-
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {track.skillsGained.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded bg-surface-2 px-2 py-0.5 font-mono text-[10px] text-ink-3"
-                    >
-                      {skill}
+          {filteredTracks.map((track) => {
+            const TrackIcon = (track.iconName && trackIconMap[track.iconName]) || Code2;
+            return (
+              <div
+                key={track.id}
+                className="glass-card flex flex-col justify-between rounded-3xl p-6 transition-all hover:shadow-md"
+              >
+                <div>
+                  <div className="flex items-center justify-between border-b border-line pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-electric-soft text-electric">
+                        <TrackIcon size={15} />
+                      </span>
+                      <span className="rounded-full bg-electric-soft px-2.5 py-0.5 text-[10px] font-mono font-semibold text-electric">
+                        {track.category}
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-ink-3">
+                      {track.duration}
                     </span>
-                  ))}
+                  </div>
+
+                  <h4 className="font-display mt-4 text-lg font-bold text-ink">
+                    {track.title}
+                  </h4>
+
+                  <p className="mt-2 text-xs leading-relaxed text-ink-2">
+                    {track.description}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {track.skillsGained.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded bg-surface-2 px-2 py-0.5 font-mono text-[10px] text-ink-3"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-line/60">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-electric hover:underline"
+                  >
+                    Apply for this Track via Contact
+                    <ArrowRight size={13} />
+                  </a>
                 </div>
               </div>
-
-              <div className="mt-6 pt-4 border-t border-line/60">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-electric hover:underline"
-                >
-                  Apply for this Track via Contact
-                  <ArrowRight size={13} />
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Application CTA Callout (Honest & Transparent) */}

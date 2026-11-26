@@ -1,7 +1,7 @@
 "use client";
 
 import { insightsArticles } from "@/lib/site";
-import { ArrowUpRight, BookOpen, Clock, Calendar } from "lucide-react";
+import { ArrowUpRight, Clock, Calendar } from "lucide-react";
 
 export function InsightsSection() {
   return (
@@ -32,10 +32,16 @@ export function InsightsSection() {
                   <span className="rounded-full bg-electric-soft px-2.5 py-0.5 font-mono font-semibold text-electric">
                     {article.category}
                   </span>
-                  <span className="flex items-center gap-1">
-                    <Clock size={12} />
-                    {article.readTime}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center gap-1">
+                      <Calendar size={12} className="text-ink-3" />
+                      {article.publishedDate}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock size={12} className="text-ink-3" />
+                      {article.readTime}
+                    </span>
+                  </div>
                 </div>
 
                 <h3 className="font-display mt-5 text-xl font-bold leading-snug text-ink transition-colors group-hover:text-electric">

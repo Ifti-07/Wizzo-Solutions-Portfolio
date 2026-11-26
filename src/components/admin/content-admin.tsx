@@ -15,8 +15,9 @@ type Project = { id: number; title: string; category: string; description: strin
 type Partner = { id: number; name: string; glyph: string; websiteUrl: string | null; order: number; active: boolean };
 
 const iconOptions = [
-  "Code2", "Smartphone", "Layers", "PenTool", "Megaphone", "Briefcase",
-  "ShoppingBag", "Cloud", "ShieldCheck", "Wrench", "Bot", "PlugZap",
+  "Code2", "Globe", "AppWindow", "Workflow", "Webhook", "Compass",
+  "Lightbulb", "ShieldCheck", "Layers", "Database", "Boxes", "Handshake",
+  "Briefcase", "ShoppingBag",
 ];
 
 const tabs = [

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Award, Layers, Users, Building, Laptop, ArrowRight } from "lucide-react";
+import { ShieldCheck, Layers, Users, Building2 } from "lucide-react";
 import { verifiedPartners } from "@/lib/site";
 
 export function PartnersSection() {
@@ -9,7 +9,7 @@ export function PartnersSection() {
   const marqueeItems = [...verifiedPartners, ...verifiedPartners];
 
   return (
-    <section id="trust" className="relative py-20">
+    <section id="trust" className="relative pt-10 pb-20 md:pt-14 md:pb-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         {/* Section 03: Authentic Credibility & Capabilities Grid */}
         <div className="text-center max-w-3xl mx-auto">
@@ -26,7 +26,7 @@ export function PartnersSection() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <div className="glass-card rounded-2xl p-6 transition-all">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric/10 text-electric">
-              <Building size={20} />
+              <Building2 size={20} />
             </div>
             <h3 className="font-display mt-4 font-bold text-ink">Dual-Region Delivery</h3>
             <p className="mt-2 text-xs leading-relaxed text-ink-2">

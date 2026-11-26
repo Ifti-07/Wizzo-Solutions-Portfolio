@@ -22,7 +22,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
   const phone = config?.phone || site.phone;
 
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-[#181818] text-white">
+    <footer className="relative overflow-hidden border-t border-line bg-[#040814] text-white">
       <div className="relative mx-auto max-w-7xl px-5 pt-16 pb-12 md:px-8 md:pt-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1.1fr_1.1fr]">
           {/* Brand Column */}
@@ -46,7 +46,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
                 aria-label="LinkedIn"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 text-white/70 transition-all hover:border-electric hover:bg-electric hover:text-white"
               >
-                <LinkedinIcon size={15} />
+                <LinkedinIcon size={16} />
               </a>
               <a
                 href={site.socials[1].href}
@@ -55,7 +55,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
                 aria-label="Facebook"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 text-white/70 transition-all hover:border-electric hover:bg-electric hover:text-white"
               >
-                <FacebookIcon size={15} />
+                <FacebookIcon size={16} />
               </a>
               <a
                 href={site.socials[2].href}
@@ -64,7 +64,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
                 aria-label="X (Twitter)"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 text-white/70 transition-all hover:border-electric hover:bg-electric hover:text-white"
               >
-                <XIcon size={14} />
+                <XIcon size={16} />
               </a>
               <a
                 href={site.socials[3].href}
@@ -73,7 +73,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
                 aria-label="GitHub"
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 text-white/70 transition-all hover:border-electric hover:bg-electric hover:text-white"
               >
-                <GithubIcon size={15} />
+                <GithubIcon size={16} />
               </a>
             </div>
           </div>

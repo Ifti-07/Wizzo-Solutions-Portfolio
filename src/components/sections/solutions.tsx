@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { Layout, Layers, Workflow, Database, CreditCard, Shield } from "lucide-react";
+import { Layout, Layers, Workflow, Database, CreditCard, Boxes, Shield } from "lucide-react";
 import { solutionsList, type SolutionItem } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,7 @@ const iconMap = {
   Workflow,
   Database,
   CreditCard,
+  Boxes,
   Shield,
 };
 

@@ -169,7 +169,7 @@ export function AmbientBackground({ className = "" }: AmbientBackgroundProps) {
         speed: 0.00024,
         phaseOffset: 2.4,
         direction: -1,
-        colorDark: "rgba(61, 120, 255, 0.12)",
+        colorDark: "rgba(7, 85, 245, 0.12)",
         colorLight: "rgba(7, 85, 245, 0.07)",
         lineWidth: 0.9,
       },

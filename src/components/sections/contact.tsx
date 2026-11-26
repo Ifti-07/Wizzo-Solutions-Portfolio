@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle, ArrowRight, MessageSquare, Clock } from "lucide-react";
+import { Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle, MessageSquare, Clock } from "lucide-react";
 import { submitContact } from "@/lib/actions/public";
 import { site } from "@/lib/site";
 import type { SiteRuntime } from "@/lib/settings";
@@ -19,7 +19,7 @@ const projectTypes = [
 ];
 
 const inputCls =
-  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink placeholder:text-ink-3 outline-none transition-all focus:border-electric focus:ring-4 focus:ring-electric/15 dark:bg-surface";
+  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-ink placeholder:text-ink-3 outline-none transition-all focus:border-electric focus:ring-4 focus:ring-electric/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric [&>option]:bg-surface [&>option]:text-ink";
 
 export function ContactSection({ config }: { config?: SiteRuntime | null }) {
   const email = config?.email || site.email;
@@ -41,6 +41,7 @@ export function ContactSection({ config }: { config?: SiteRuntime | null }) {
         <div className="glass-card rounded-3xl p-8 md:p-12 mb-16">
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-electric">
+              <MessageSquare size={13} />
               Ready When You Are
             </span>
             <h2 className="heading-3 sm:heading-2 font-semibold tracking-tight text-ink [text-wrap:balance] mt-4">
@@ -169,7 +170,7 @@ export function ContactSection({ config }: { config?: SiteRuntime | null }) {
                 <button
                   type="submit"
                   disabled={pending}
-                  className="btn-primary inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-electric px-8 py-3.5 text-sm font-semibold text-white shadow-md shadow-electric/25 transition-all hover:bg-electric/90 disabled:opacity-60"
+                  className="btn-primary inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-electric px-8 py-3.5 text-sm font-semibold text-white shadow-md shadow-electric/25 transition-all hover:bg-electric-dark active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-electric focus-visible:ring-offset-bg disabled:opacity-60"
                 >
                   {pending ? (
                     <span>Submitting inquiry...</span>

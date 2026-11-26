@@ -1,9 +1,26 @@
 "use client";
 
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
-import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  GraduationCap,
+  ShoppingBag,
+  Store,
+  HeartPulse,
+  FolderGit2,
+  type LucideIcon,
+} from "lucide-react";
 import Image from "next/image";
 import { featuredProjects } from "@/lib/site";
+
+const categoryIconMap: Record<string, LucideIcon> = {
+  "Academic Community Platform": GraduationCap,
+  "Fashion E-commerce": ShoppingBag,
+  "Retail & Service Management": Store,
+  "Healthcare & Medication Management": HeartPulse,
+};
 
 export function ProjectsSection() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -102,9 +119,15 @@ export function ProjectsSection() {
 
               <div className="flex flex-1 flex-col p-6">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-electric-soft px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-electric">
-                    {project.category}
-                  </span>
+                  {(() => {
+                    const CategoryIcon = categoryIconMap[project.category] || FolderGit2;
+                    return (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-electric-soft px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-electric">
+                        <CategoryIcon size={12} className="shrink-0" />
+                        {project.category}
+                      </span>
+                    );
+                  })()}
                   <span className="text-[11px] font-medium text-ink-3">{project.type}</span>
                 </div>
 

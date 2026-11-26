@@ -49,6 +49,7 @@ export interface ProcessStage {
   tagline: string;
   description: string;
   keyOutputs: string[];
+  iconName?: string;
 }
 
 export interface InternshipTrack {
@@ -59,6 +60,7 @@ export interface InternshipTrack {
   commitment: string;
   description: string;
   skillsGained: string[];
+  iconName?: string;
 }
 
 export interface InsightArticle {
@@ -152,7 +154,7 @@ export const coreServices: ServiceItem[] = [
     shortDescription: "Interactive, high-performing web apps and SaaS products that deliver desktop-grade reliability in the browser.",
     fullDescription:
       "We design and build dynamic web applications that handle complex data, secure user flows, and real-time state management. Utilizing modern full-stack architectures, our web apps load fast, maintain high uptime, and stay easy to maintain.",
-    iconName: "Laptop",
+    iconName: "AppWindow",
     businessValue: "Provides customers and teams with accessible, real-time digital services from any modern device.",
     deliverables: ["Multi-Tenant SaaS Apps", "Customer Portals", "Interactive Dashboards", "Cloud Business Tools"],
   },
@@ -162,7 +164,7 @@ export const coreServices: ServiceItem[] = [
     shortDescription: "Connecting fragmented systems to automate repetitive operations, eliminate human error, and save hours.",
     fullDescription:
       "Repetitive copy-pasting, disconnected spreadsheets, and manual email notifications drain team productivity. We design automated workflows that seamlessly pass information between your inventory, accounting, CRM, and communications channels.",
-    iconName: "Bot",
+    iconName: "Workflow",
     businessValue: "Saves hundreds of human hours monthly and dramatically cuts costly operational mistakes.",
     deliverables: ["Workflow Orchestration", "ERP/CRM Data Sync", "Automated Notifications & Reports", "Paperless Business Pipelines"],
   },
@@ -172,7 +174,7 @@ export const coreServices: ServiceItem[] = [
     shortDescription: "Secure, well-documented REST & GraphQL interfaces connecting your applications with third-party ecosystems.",
     fullDescription:
       "Modern technology depends on reliable connectivity. We develop robust APIs and build secure integrations with payment gateways, banking channels, logistics providers, and external software suites with comprehensive telemetry.",
-    iconName: "PlugZap",
+    iconName: "Webhook",
     businessValue: "Enables fast interoperability between modern customer interfaces and complex backends.",
     deliverables: ["RESTful & GraphQL APIs", "Payment Gateway Integrations", "Webhook Handlers", "Third-Party Microservices"],
   },
@@ -182,7 +184,7 @@ export const coreServices: ServiceItem[] = [
     shortDescription: "End-to-end digital transformation roadmaps helping traditional businesses modernize their technology landscape.",
     fullDescription:
       "Navigating technology transitions requires more than just writing code; it demands a clear understanding of commercial objectives. We guide organizations through cloud adoption, digital workplace setup, and customer-facing technology roadmaps.",
-    iconName: "Cpu",
+    iconName: "Compass",
     businessValue: "Provides leadership with clarity and minimizes expensive technology missteps.",
     deliverables: ["Digital Modernization Roadmaps", "Commerce Architecture", "Cloud Migration Planning", "Data Infrastructure Setup"],
   },
@@ -271,7 +273,7 @@ export const solutionsList: SolutionItem[] = [
     problem: "Complex proprietary processes that cannot be handled by standard commercial templates.",
     solution: "Clean-slate architectural design with robust permissions, audit trails, and modular expandability.",
     businessOutcome: "A proprietary technological competitive advantage that grows with your business.",
-    iconName: "Shield",
+    iconName: "Boxes",
     typicalTech: ["TypeScript", "PostgreSQL", "Redis", "Docker"],
   },
 ];
@@ -292,7 +294,7 @@ export const whyChooseReasons = [
     title: "Practical, Reliable Stacks",
     description:
       "We avoid fleeting industry fads. We build with mature, battle-tested technologies like Next.js, TypeScript, and PostgreSQL that ensure stability, easy hiring, and decades of maintainability.",
-    icon: "CheckCircle",
+    icon: "Layers",
   },
   {
     number: "03",
@@ -320,7 +322,7 @@ export const whyChooseReasons = [
     title: "Reliable Long-Term Partnership",
     description:
       "Our engagement doesn't end at delivery. We stay beside our clients to provide continuous monitoring, performance tuning, and technical guidance as their business expands.",
-    icon: "ShieldAlert",
+    icon: "Handshake",
   },
 ];
 
@@ -335,6 +337,7 @@ export const developmentProcess: ProcessStage[] = [
     description:
       "We begin by thoroughly understanding your business objectives, operational workflows, target audience, and current technical challenges. We ask the right questions before writing a single line of code.",
     keyOutputs: ["Requirements Document", "Technical Feasibility Assessment", "Project Roadmap & Milestones"],
+    iconName: "Search",
   },
   {
     step: "02",
@@ -343,6 +346,7 @@ export const developmentProcess: ProcessStage[] = [
     description:
       "We define the technical blueprint, selecting the ideal tech stack, designing database schemas, establishing security protocols, and outlining precise scope and deliverables.",
     keyOutputs: ["Architecture Blueprint", "Data Schema Specification", "Scope of Work & Sprint Schedule"],
+    iconName: "FileText",
   },
   {
     step: "03",
@@ -351,6 +355,7 @@ export const developmentProcess: ProcessStage[] = [
     description:
       "We craft responsive, accessible interfaces focused on clarity, visual hierarchy, and brand personality. We build interactive prototypes so you can experience the product before development begins.",
     keyOutputs: ["Interactive Prototypes", "Design System & Tokens", "Responsive Layout Specs"],
+    iconName: "Palette",
   },
   {
     step: "04",
@@ -359,6 +364,7 @@ export const developmentProcess: ProcessStage[] = [
     description:
       "Our engineers build your software following strict code standards, typed contracts, modular architecture, and version control. You receive regular build previews to track real progress.",
     keyOutputs: ["Production-Quality Codebase", "API Documentation", "Staging Environment Previews"],
+    iconName: "Code2",
   },
   {
     step: "05",
@@ -367,6 +373,7 @@ export const developmentProcess: ProcessStage[] = [
     description:
       "We rigorously validate the solution across browsers, operating systems, and device form factors. We test edge cases, benchmark loading speeds, inspect security headers, and refine subtle details.",
     keyOutputs: ["Cross-Device QA Reports", "Performance Benchmark Audit", "Security & Accessibility Check"],
+    iconName: "CheckCheck",
   },
   {
     step: "06",
@@ -375,6 +382,7 @@ export const developmentProcess: ProcessStage[] = [
     description:
       "We manage the production launch with zero downtime, conduct handover walk-throughs with your team, and provide reliable post-launch monitoring and technical support as agreed.",
     keyOutputs: ["Production Deployment", "Handover Documentation", "Continuous SLA Maintenance"],
+    iconName: "Rocket",
   },
 ];
 
@@ -514,6 +522,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid / On-site (Dhaka)",
     description: "Learn production Next.js, TypeScript, RESTful API architecture, and relational database modeling on active projects.",
     skillsGained: ["Next.js", "TypeScript", "PostgreSQL", "Git Workflows", "API Design"],
+    iconName: "Code2",
   },
   {
     id: "frontend-dev",
@@ -523,6 +532,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid",
     description: "Master modern UI development, component state management, accessibility compliance, and Framer Motion micro-interactions.",
     skillsGained: ["React 19", "Tailwind CSS", "Framer Motion", "Responsive Layouts", "Web Vitals"],
+    iconName: "Layout",
   },
   {
     id: "backend-dev",
@@ -532,6 +542,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid",
     description: "Build robust server architectures, database migrations, authentication security, and scalable background workers.",
     skillsGained: ["Node.js", "Go/Express", "Drizzle ORM", "Redis", "Security Best Practices"],
+    iconName: "Database",
   },
   {
     id: "uiux-design",
@@ -541,6 +552,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid",
     description: "Conduct user research, establish design systems in Figma, and build wireframes and high-fidelity clickable prototypes.",
     skillsGained: ["Figma", "Design Systems", "User Journeys", "Typography & Spacing", "Prototyping"],
+    iconName: "Palette",
   },
   {
     id: "qa-testing",
@@ -550,6 +562,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid",
     description: "Learn automated unit testing, end-to-end user journey validation, API testing with Postman, and regression tracking.",
     skillsGained: ["Test Automation", "Bug Reporting", "API Validation", "Cross-Browser QA"],
+    iconName: "CheckCheck",
   },
   {
     id: "ai-ml",
@@ -559,6 +572,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid",
     description: "Explore practical LLM integrations, document parsing, automated summarization, and data transformation pipelines.",
     skillsGained: ["Gemini / OpenAI APIs", "Python Data Tooling", "Workflow Automation", "Prompt Engineering"],
+    iconName: "Bot",
   },
   {
     id: "cybersecurity",
@@ -568,6 +582,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid",
     description: "Hands-on vulnerability scanning, OWASP top 10 compliance audits, secure headers, and access control validation.",
     skillsGained: ["OWASP Security", "Audit Logging", "SSL/TLS Hardening", "Environment Protection"],
+    iconName: "ShieldCheck",
   },
   {
     id: "networking-it",
@@ -577,6 +592,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "On-site",
     description: "Support workstation setups, server diagnostics, DNS routing, VPN configurations, and cloud server provisioning.",
     skillsGained: ["DNS & Domain Routing", "Linux Server Admin", "Cloud Hosting", "Network Security"],
+    iconName: "Network",
   },
   {
     id: "business-dev",
@@ -586,6 +602,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Hybrid",
     description: "Participate in client discovery calls, market research, technical proposal preparation, and client relationship management.",
     skillsGained: ["Client Discovery", "Proposal Writing", "Market Research", "B2B Communication"],
+    iconName: "TrendingUp",
   },
   {
     id: "sales-marketing",
@@ -595,6 +612,7 @@ export const internshipTracks: InternshipTrack[] = [
     commitment: "Remote / Hybrid",
     description: "Create technical content, analyze website traffic with Google Search Console, and write engaging case studies.",
     skillsGained: ["Technical Writing", "SEO Analysis", "Social Media Strategy", "Case Study Curation"],
+    iconName: "Megaphone",
   },
 ];
 

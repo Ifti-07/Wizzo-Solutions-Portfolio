@@ -131,36 +131,44 @@ export function FlowingDataWaves({
     container.addEventListener("pointerleave", handlePointerLeave);
 
     const mult =
-      intensity === "vibrant" ? 1.25 : intensity === "medium" ? 1.0 : 0.75;
+      intensity === "vibrant" ? 1.0 : intensity === "medium" ? 0.72 : 0.52;
 
-    // 5 Architectural Wave Streams
+    // Helper to scale rgba alpha
+    const scaleAlpha = (rgbaColor: string, factor: number): string => {
+      return rgbaColor.replace(
+        /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d\.]+)\s*\)/,
+        (_, r, g, b, a) => `rgba(${r}, ${g}, ${b}, ${(parseFloat(a) * factor).toFixed(3)})`
+      );
+    };
+
+    // 5 Architectural Wave Streams with refined corporate opacities
     const waves: WaveConfig[] = [
       {
         // 1. Deep atmospheric carrier wave (broad & slow)
         baseYPercent: 0.74,
-        amplitude: 48,
+        amplitude: 44,
         frequency: 0.0011,
-        speed: 0.0004,
+        speed: 0.00035,
         subWaves: 3,
         subSpacing: 14,
-        colorDark: `rgba(7, 85, 245, ${0.22 * mult})`,
-        colorLight: `rgba(7, 85, 245, ${0.14 * mult})`,
-        lineWidth: 1.1,
+        colorDark: `rgba(7, 85, 245, ${0.14 * mult})`,
+        colorLight: `rgba(7, 85, 245, ${0.09 * mult})`,
+        lineWidth: 1.0,
         phaseOffset: 0,
         direction: 1,
-        tilt: -20,
+        tilt: -18,
       },
       {
         // 2. Primary electric-blue data ribbon (signature brand curve)
         baseYPercent: 0.62,
-        amplitude: 42,
-        frequency: 0.0017,
-        speed: 0.00065,
-        subWaves: 5,
+        amplitude: 38,
+        frequency: 0.0016,
+        speed: 0.00055,
+        subWaves: 4,
         subSpacing: 8,
-        colorDark: `rgba(61, 120, 255, ${0.48 * mult})`,
-        colorLight: `rgba(7, 85, 245, ${0.28 * mult})`,
-        lineWidth: 1.4,
+        colorDark: `rgba(7, 85, 245, ${0.28 * mult})`,
+        colorLight: `rgba(7, 85, 245, ${0.18 * mult})`,
+        lineWidth: 1.2,
         phaseOffset: Math.PI * 0.45,
         direction: 1,
         tilt: -12,
@@ -169,29 +177,29 @@ export function FlowingDataWaves({
       {
         // 3. Counter-flowing cyan wave (subtle cross-harmonics)
         baseYPercent: 0.52,
-        amplitude: 34,
-        frequency: 0.0022,
-        speed: 0.00052,
-        subWaves: 4,
+        amplitude: 30,
+        frequency: 0.0021,
+        speed: 0.00045,
+        subWaves: 3,
         subSpacing: 10,
-        colorDark: `rgba(0, 212, 255, ${0.35 * mult})`,
-        colorLight: `rgba(0, 160, 200, ${0.2 * mult})`,
-        lineWidth: 1.2,
+        colorDark: `rgba(0, 180, 230, ${0.18 * mult})`,
+        colorLight: `rgba(0, 140, 190, ${0.12 * mult})`,
+        lineWidth: 1.0,
         phaseOffset: Math.PI * 1.2,
         direction: -1,
-        tilt: 18,
+        tilt: 16,
       },
       {
         // 4. Foreground crisp light-trail stream
         baseYPercent: 0.82,
-        amplitude: 36,
-        frequency: 0.0026,
-        speed: 0.00085,
+        amplitude: 32,
+        frequency: 0.0024,
+        speed: 0.0007,
         subWaves: 3,
         subSpacing: 9,
-        colorDark: `rgba(138, 184, 255, ${0.42 * mult})`,
-        colorLight: `rgba(7, 85, 245, ${0.24 * mult})`,
-        lineWidth: 1.3,
+        colorDark: `rgba(61, 120, 255, ${0.22 * mult})`,
+        colorLight: `rgba(7, 85, 245, ${0.14 * mult})`,
+        lineWidth: 1.0,
         phaseOffset: Math.PI * 0.85,
         direction: 1,
         tilt: -8,
@@ -200,17 +208,17 @@ export function FlowingDataWaves({
       {
         // 5. Upper subtle horizon contour
         baseYPercent: 0.42,
-        amplitude: 24,
-        frequency: 0.0014,
-        speed: 0.00035,
-        subWaves: 3,
+        amplitude: 22,
+        frequency: 0.0013,
+        speed: 0.0003,
+        subWaves: 2,
         subSpacing: 12,
-        colorDark: `rgba(61, 120, 255, ${0.2 * mult})`,
-        colorLight: `rgba(16, 37, 66, ${0.12 * mult})`,
-        lineWidth: 0.9,
+        colorDark: `rgba(7, 85, 245, ${0.11 * mult})`,
+        colorLight: `rgba(16, 37, 66, ${0.07 * mult})`,
+        lineWidth: 0.8,
         phaseOffset: Math.PI * 1.6,
         direction: -1,
-        tilt: 14,
+        tilt: 12,
       },
     ];
 
@@ -220,9 +228,9 @@ export function FlowingDataWaves({
         waveIndex: 1, // Primary electric-blue ribbon
         subIndex: 0,
         progress: 0.12,
-        speed: 0.00034,
-        size: 2.2,
-        tailLength: 42,
+        speed: 0.00028,
+        size: 1.6,
+        tailLength: 28,
         colorDark: "#93c5fd",
         colorLight: "#0755F5",
       },
@@ -230,19 +238,19 @@ export function FlowingDataWaves({
         waveIndex: 1,
         subIndex: 1,
         progress: 0.58,
-        speed: 0.00028,
-        size: 1.8,
-        tailLength: 35,
+        speed: 0.00024,
+        size: 1.4,
+        tailLength: 24,
         colorDark: "#bfdbfe",
         colorLight: "#0648c7",
       },
       {
         waveIndex: 1,
-        subIndex: 3,
+        subIndex: 2,
         progress: 0.88,
-        speed: 0.00032,
-        size: 2.0,
-        tailLength: 38,
+        speed: 0.00026,
+        size: 1.5,
+        tailLength: 26,
         colorDark: "#60a5fa",
         colorLight: "#0755F5",
       },
@@ -250,9 +258,9 @@ export function FlowingDataWaves({
         waveIndex: 2, // Cyan counter-flow ribbon
         subIndex: 1,
         progress: 0.76,
-        speed: 0.0003,
-        size: 2.1,
-        tailLength: 40,
+        speed: 0.00024,
+        size: 1.5,
+        tailLength: 25,
         colorDark: "#67e8f9",
         colorLight: "#0284c7",
       },
@@ -260,9 +268,9 @@ export function FlowingDataWaves({
         waveIndex: 2,
         subIndex: 2,
         progress: 0.28,
-        speed: 0.00036,
-        size: 1.9,
-        tailLength: 36,
+        speed: 0.0003,
+        size: 1.4,
+        tailLength: 22,
         colorDark: "#38bdf8",
         colorLight: "#0369a1",
       },
@@ -270,19 +278,19 @@ export function FlowingDataWaves({
         waveIndex: 3, // Foreground light-trail ribbon
         subIndex: 0,
         progress: 0.42,
-        speed: 0.00038,
-        size: 2.3,
-        tailLength: 46,
-        colorDark: "#ffffff",
+        speed: 0.00032,
+        size: 1.6,
+        tailLength: 30,
+        colorDark: "#bfdbfe",
         colorLight: "#0755F5",
       },
       {
         waveIndex: 3,
         subIndex: 1,
         progress: 0.06,
-        speed: 0.00031,
-        size: 1.9,
-        tailLength: 34,
+        speed: 0.00025,
+        size: 1.4,
+        tailLength: 22,
         colorDark: "#93c5fd",
         colorLight: "#3d78ff",
       },
@@ -290,9 +298,9 @@ export function FlowingDataWaves({
         waveIndex: 0, // Deep carrier ribbon
         subIndex: 1,
         progress: 0.68,
-        speed: 0.00024,
-        size: 1.7,
-        tailLength: 30,
+        speed: 0.0002,
+        size: 1.3,
+        tailLength: 20,
         colorDark: "#3b82f6",
         colorLight: "#0755F5",
       },
@@ -371,11 +379,13 @@ export function FlowingDataWaves({
 
           const subFade = 1 - (sub / w.subWaves) * 0.42;
 
-          // Horizontal gradient with smooth fade at boundaries
+          // Horizontal gradient: softer behind headline & text on left, smoothly opening up toward the architecture visual
           const grad = ctx.createLinearGradient(0, 0, width, 0);
           grad.addColorStop(0, "rgba(0,0,0,0)");
-          grad.addColorStop(0.08, strokeColor);
-          grad.addColorStop(0.92, strokeColor);
+          grad.addColorStop(0.06, scaleAlpha(strokeColor, 0.35));
+          grad.addColorStop(0.40, scaleAlpha(strokeColor, 0.5));
+          grad.addColorStop(0.72, strokeColor);
+          grad.addColorStop(0.92, scaleAlpha(strokeColor, 0.75));
           grad.addColorStop(1, "rgba(0,0,0,0)");
 
           ctx.strokeStyle = grad;
@@ -383,8 +393,8 @@ export function FlowingDataWaves({
           ctx.globalAlpha = subFade * waveBreathing;
 
           if (w.glow && sub === 0 && isDark) {
-            ctx.shadowBlur = 6;
-            ctx.shadowColor = "rgba(61, 120, 255, 0.35)";
+            ctx.shadowBlur = 3;
+            ctx.shadowColor = "rgba(7, 85, 245, 0.25)";
           } else {
             ctx.shadowBlur = 0;
           }
@@ -420,17 +430,24 @@ export function FlowingDataWaves({
         const tailSegments = 10;
         const tailStep = p.tailLength / tailSegments;
 
+        // Attenuate pulses behind left text block (x < width * 0.48) to maximize legibility
+        const isBehindText = currentX < width * 0.48;
+        const textAttenuation = isBehindText ? 0.35 : 0.85;
+
         // Draw delicate luminous light trail
         for (let i = tailSegments; i >= 1; i--) {
           const tailX = currentX - i * tailStep * w.direction;
           if (tailX < 0 || tailX > width) continue;
 
           const tailY = computeWaveY(tailX, time, w, p.subIndex);
-          const alpha = ((tailSegments - i) / tailSegments) * (isDark ? 0.42 : 0.32);
+          const alpha =
+            ((tailSegments - i) / tailSegments) *
+            (isDark ? 0.22 : 0.16) *
+            textAttenuation;
           const trailSize = p.size * (1 - (i / tailSegments) * 0.55);
 
           ctx.beginPath();
-          ctx.arc(tailX, tailY, Math.max(0.6, trailSize), 0, Math.PI * 2);
+          ctx.arc(tailX, tailY, Math.max(0.5, trailSize), 0, Math.PI * 2);
           ctx.fillStyle = pulseColor;
           ctx.globalAlpha = alpha;
           ctx.fill();
@@ -438,36 +455,36 @@ export function FlowingDataWaves({
 
         // Main luminous data node
         if (currentX >= 0 && currentX <= width) {
-          // Soft ambient halo (subtle, no harsh neon)
+          // Soft ambient halo (subtle, quiet glow)
           const halo = ctx.createRadialGradient(
             currentX,
             currentY,
             0,
             currentX,
             currentY,
-            p.size * 3.5
+            p.size * 2.6
           );
           halo.addColorStop(
             0,
-            isDark ? "rgba(96, 165, 250, 0.45)" : "rgba(7, 85, 245, 0.35)"
+            isDark ? "rgba(96, 165, 250, 0.28)" : "rgba(7, 85, 245, 0.2)"
           );
           halo.addColorStop(
-            0.5,
-            isDark ? "rgba(7, 85, 245, 0.12)" : "rgba(7, 85, 245, 0.08)"
+            0.6,
+            isDark ? "rgba(7, 85, 245, 0.08)" : "rgba(7, 85, 245, 0.04)"
           );
           halo.addColorStop(1, "transparent");
 
           ctx.beginPath();
-          ctx.arc(currentX, currentY, p.size * 3.5, 0, Math.PI * 2);
+          ctx.arc(currentX, currentY, p.size * 2.6, 0, Math.PI * 2);
           ctx.fillStyle = halo;
-          ctx.globalAlpha = 0.9;
+          ctx.globalAlpha = 0.55 * textAttenuation;
           ctx.fill();
 
           // Crisp core point
           ctx.beginPath();
           ctx.arc(currentX, currentY, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? "#ffffff" : "#0755F5";
-          ctx.globalAlpha = 0.95;
+          ctx.fillStyle = isDark ? "#c8dcff" : "#0755F5";
+          ctx.globalAlpha = 0.75 * textAttenuation;
           ctx.fill();
         }
       });

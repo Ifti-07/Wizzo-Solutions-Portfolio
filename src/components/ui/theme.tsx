@@ -4,8 +4,8 @@ import { useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
-/** Blocking script injected before paint to apply the saved theme (no flash). Defaults to light. */
-export const themeInitScript = `(function(){try{if(localStorage.getItem("wizzo-theme")==="dark"){document.documentElement.classList.add("dark");}}catch(e){}})();`;
+/** Blocking script injected before paint to apply the saved theme (no flash). Defaults to dark navy corporate theme. */
+export const themeInitScript = `(function(){try{var t=localStorage.getItem("wizzo-theme");if(t!=="light"){document.documentElement.classList.add("dark");}}catch(e){}})();`;
 
 export function toggleTheme() {
   const isDark = document.documentElement.classList.toggle("dark");
@@ -27,7 +27,7 @@ function getSnapshot() {
 }
 
 function getServerSnapshot() {
-  return false;
+  return true;
 }
 
 export function ThemeToggle() {
@@ -37,7 +37,7 @@ export function ThemeToggle() {
     <button
       aria-label="Toggle light / night mode"
       onClick={() => toggleTheme()}
-      className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-line bg-surface text-ink-2 transition-colors hover:border-electric hover:text-electric"
+      className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-line bg-surface text-ink-2 transition-colors hover:border-electric hover:text-electric focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

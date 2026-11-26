@@ -92,7 +92,7 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "relative rounded-md px-3 py-2 text-xs sm:text-sm font-medium transition-colors duration-200",
+                      "relative rounded-md px-3 py-2 text-xs sm:text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric",
                       isActive
                         ? "text-electric font-semibold"
                         : "text-ink-2 hover:text-ink"
@@ -119,7 +119,7 @@ export function Navbar() {
             {/* Single Primary Action Button with B2 button padding */}
             <Link
               href="#contact"
-              className="hidden h-9 items-center gap-1.5 rounded-lg bg-electric px-4 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-[#0648c7] active:scale-[0.99] sm:inline-flex"
+              className="hidden h-9 items-center gap-1.5 rounded-lg bg-electric px-4 text-xs sm:text-sm font-semibold text-white shadow-xs transition-all hover:bg-electric-dark active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-electric focus-visible:ring-offset-surface sm:inline-flex"
             >
               <span>Schedule Consultation</span>
               <ArrowRight size={13} />
@@ -131,7 +131,7 @@ export function Navbar() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen(!open)}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-ink transition-colors hover:border-electric hover:text-electric lg:hidden"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-ink transition-colors hover:border-electric hover:text-electric focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric lg:hidden"
             >
               <div className="relative h-4 w-4">
                 <motion.span
@@ -163,7 +163,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: EASE }}
-            className="fixed inset-0 z-[65] flex flex-col bg-surface/98 px-6 pt-24 pb-8 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-[65] flex flex-col bg-surface/98 px-6 pt-24 pb-8 backdrop-blur-2xl lg:hidden"
           >
             <div className="flex flex-col justify-between h-full">
               {/* Staggered Link Entrance (B7: Moving up Spacing-300 (24px), stepped 60ms, capped at 400ms) */}

@@ -36,21 +36,22 @@ export const metadata: Metadata = {
     "Technology Partner",
   ],
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/api/brand-asset/Secondary%20Logo%20without%20title.svg",
-    other: [
+    icon: [
       {
-        rel: "icon",
-        url: "/favicon.svg",
+        url: "/favicon.ico",
         sizes: "any",
-        type: "image/svg+xml",
       },
       {
-        rel: "icon",
-        url: "/api/brand-asset/Secondary%20Logo%20without%20title.svg",
-        sizes: "any",
+        url: "/favicon.svg",
         type: "image/svg+xml",
+      },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
       },
     ],
   },

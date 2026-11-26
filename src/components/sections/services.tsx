@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Code2,
   Globe,
-  Laptop,
-  Bot,
-  PlugZap,
-  Cpu,
+  AppWindow,
+  Workflow,
+  Webhook,
+  Compass,
   Lightbulb,
   ShieldCheck,
   ArrowUpRight,
@@ -21,12 +21,17 @@ import { coreServices, type ServiceItem } from "@/lib/site";
 const iconMap: Record<string, LucideIcon> = {
   Code2,
   Globe,
-  Laptop,
-  Bot,
-  PlugZap,
-  Cpu,
+  AppWindow,
+  Workflow,
+  Webhook,
+  Compass,
   Lightbulb,
   ShieldCheck,
+  // Backwards compatibility fallbacks
+  Laptop: AppWindow,
+  Bot: Workflow,
+  PlugZap: Webhook,
+  Cpu: Compass,
 };
 
 export function ServicesSection() {

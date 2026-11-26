@@ -1,6 +1,6 @@
 "use client";
 
-import { Quote, Building2, CheckCircle2 } from "lucide-react";
+import { Quote, Building2 } from "lucide-react";
 import { clientTestimonials, type TestimonialItem } from "@/lib/site";
 
 export function TestimonialsSection() {

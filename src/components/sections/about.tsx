@@ -70,57 +70,61 @@ export function AboutSection() {
               </div>
 
               {/* Dual-Presence Map Card */}
-              <div className="mt-6 space-y-4">
-                <div className="glass-card group rounded-2xl p-4 transition-all">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric text-white shadow-md shadow-electric/25">
-                        <MapPin size={18} />
+              <div className="mt-4 sm:mt-6 space-y-3 sm:space-y-4">
+                <div className="glass-card group rounded-2xl p-3.5 sm:p-4 transition-all">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-electric text-white shadow-md shadow-electric/25">
+                        <MapPin size={17} className="sm:size-[18px]" />
                       </span>
-                      <div>
-                        <h4 className="font-display font-bold text-ink">Operations &amp; Delivery Hub</h4>
+                      <div className="min-w-0">
+                        <h4 className="font-display text-sm sm:text-base font-bold text-ink leading-snug">
+                          Operations &amp; Delivery Hub
+                        </h4>
                         <p className="text-xs text-ink-3">Dhaka, Bangladesh</p>
                       </div>
                     </div>
-                    <span className="rounded bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                    <span className="ml-12 sm:ml-0 self-start shrink-0 whitespace-nowrap rounded bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
                       ACTIVE HUB
                     </span>
                   </div>
-                  <p className="mt-3 text-xs leading-relaxed text-ink-2">
+                  <p className="mt-2.5 sm:mt-3 text-xs leading-relaxed text-ink-2">
                     Our central development and design center driving core product builds, software quality assurance,
                     and client support.
                   </p>
                 </div>
 
-                <div className="glass-card group rounded-2xl p-4 transition-all">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface border border-line text-electric">
-                        <Globe size={18} />
+                <div className="glass-card group rounded-2xl p-3.5 sm:p-4 transition-all">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-surface border border-line text-electric">
+                        <Globe size={17} className="sm:size-[18px]" />
                       </span>
-                      <div>
-                        <h4 className="font-display font-bold text-ink">International Office</h4>
+                      <div className="min-w-0">
+                        <h4 className="font-display text-sm sm:text-base font-bold text-ink leading-snug">
+                          International Office
+                        </h4>
                         <p className="text-xs text-ink-3">China</p>
                       </div>
                     </div>
-                    <span className="rounded bg-electric/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-electric">
+                    <span className="ml-12 sm:ml-0 self-start shrink-0 whitespace-nowrap rounded bg-electric/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-electric">
                       STRATEGIC ORIGIN
                     </span>
                   </div>
-                  <p className="mt-3 text-xs leading-relaxed text-ink-2">
+                  <p className="mt-2.5 sm:mt-3 text-xs leading-relaxed text-ink-2">
                     Company origin and regional coordination fostering Asian technical partnerships and enterprise standards.
                   </p>
                 </div>
               </div>
 
               {/* Verification Metrics (Real, Authentic, Unexaggerated) */}
-              <div className="mt-6 grid grid-cols-2 gap-3 border-t border-line pt-5 text-center">
-                <div className="rounded-xl border border-line/60 bg-surface-2/40 p-3">
-                  <span className="block font-display text-xl font-bold text-electric">Full Lifecycle</span>
+              <div className="mt-4 sm:mt-6 grid grid-cols-2 gap-2.5 sm:gap-3 border-t border-line pt-4 sm:pt-5 text-center">
+                <div className="rounded-xl border border-line/60 bg-surface-2/40 p-2.5 sm:p-3">
+                  <span className="block font-display text-base sm:text-xl font-bold text-electric">Full Lifecycle</span>
                   <span className="mt-0.5 block text-[11px] text-ink-3">Design to Deployment</span>
                 </div>
-                <div className="rounded-xl border border-line/60 bg-surface-2/40 p-3">
-                  <span className="block font-display text-xl font-bold text-ink">Direct Access</span>
+                <div className="rounded-xl border border-line/60 bg-surface-2/40 p-2.5 sm:p-3">
+                  <span className="block font-display text-base sm:text-xl font-bold text-ink">Direct Access</span>
                   <span className="mt-0.5 block text-[11px] text-ink-3">To Senior Engineers</span>
                 </div>
               </div>

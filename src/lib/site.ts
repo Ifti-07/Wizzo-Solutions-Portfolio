@@ -86,6 +86,7 @@ export interface TestimonialItem {
 export const site = {
   name: "WIZZO Solutions",
   legalName: "WIZZO Solutions Limited",
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://wizzo.solutions").replace(/\/$/, ""),
   tagline: "Practical Technology Solutions for Growing Businesses",
   heroHeadline: "We build reliable software, websites, and digital systems that move your business forward.",
   heroSubtitle:

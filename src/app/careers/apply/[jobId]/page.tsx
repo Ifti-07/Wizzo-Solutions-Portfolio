@@ -11,10 +11,67 @@ import { Footer } from "@/components/layout/footer";
 import { ApplicationForm } from "@/components/careers/application-form";
 import type { JobItem } from "@/components/careers/jobs-list";
 import { Reveal } from "@/components/ui/reveal";
+import { site } from "@/lib/site";
 import { ArrowLeft } from "lucide-react";
 
-export const metadata: Metadata = { title: "Apply — Careers" };
 export const dynamic = "force-dynamic";
+
+async function findJobById(jobId: string): Promise<JobItem | null> {
+  if (jobId === "general") return null;
+  if (pool) {
+    try {
+      await ensureDatabaseSchema();
+      const rows = await db.select().from(jobs).where(eq(jobs.open, true));
+      const match = rows.find((j) => j.id === Number(jobId));
+      if (match) return toJobItem(match);
+    } catch {
+      /* DB not ready */
+    }
+  }
+  const fileJobs = await getStoredJobs();
+  const match = fileJobs.find((j) => j.open && j.id === Number(jobId));
+  return match
+    ? {
+        id: match.id,
+        title: match.title,
+        type: match.type,
+        category: match.category,
+        location: match.location,
+        description: match.description,
+        requirements: match.requirements,
+        deadline: match.deadline,
+      }
+    : null;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ jobId: string }>;
+}): Promise<Metadata> {
+  const { jobId } = await params;
+  const job = await findJobById(jobId);
+  const title = job ? `Apply: ${job.title}` : "Apply — Careers";
+  const description = job
+    ? `Apply for ${job.title} (${job.location}) at ${site.name}.`
+    : `Submit a general career or internship application at ${site.name}.`;
+  const canonicalPath = `/careers/apply/${jobId}`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title: `${title} | ${site.name}`,
+      description,
+      url: `${site.url}${canonicalPath}`,
+      type: "website",
+      siteName: site.name,
+    },
+  };
+}
 
 function toJobItem(j: typeof jobs.$inferSelect): JobItem {
   return {

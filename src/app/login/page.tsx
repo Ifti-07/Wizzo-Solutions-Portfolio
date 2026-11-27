@@ -3,7 +3,10 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { LoginForm } from "@/components/auth/login-form";
 
-export const metadata: Metadata = { title: "Employee & Intern Login" };
+export const metadata: Metadata = {
+  title: "Employee & Intern Login",
+  robots: { index: false, follow: false },
+};
 export const dynamic = "force-dynamic";
 
 export default async function LoginPage() {

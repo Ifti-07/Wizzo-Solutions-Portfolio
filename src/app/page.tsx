@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { HeroSection } from "@/components/sections/hero";
@@ -14,6 +15,16 @@ import { CareersSection } from "@/components/sections/careers";
 import { InsightsSection } from "@/components/sections/insights";
 import { ContactSection } from "@/components/sections/contact";
 import { getSiteRuntime } from "@/lib/settings";
+import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    url: site.url,
+  },
+};
 
 export const dynamic = "force-dynamic";
 

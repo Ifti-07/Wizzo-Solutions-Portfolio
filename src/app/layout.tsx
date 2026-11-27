@@ -19,10 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://wizzosolutions.com"),
-  alternates: {
-    canonical: "/",
-  },
+  metadataBase: new URL(site.url),
   title: {
     default: `${site.name} — Corporate Technology & Digital Engineering`,
     template: `%s | ${site.name}`,
@@ -62,6 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${site.name} — Corporate Technology & Digital Engineering`,
     description: site.heroSubtitle,
+    url: site.url,
     type: "website",
     siteName: site.name,
     locale: "en_US",
@@ -83,11 +81,47 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.url}/#organization`,
+      name: site.name,
+      legalName: site.legalName,
+      url: site.url,
+      logo: `${site.url}/icon-512.png`,
+      email: site.email,
+      telephone: site.phone,
+      description: site.heroSubtitle,
+      sameAs: site.socials.map((s) => s.href),
+      address: site.offices.map((o) => ({
+        "@type": "PostalAddress",
+        addressLocality: o.city,
+        addressCountry: o.country,
+      })),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      description: site.heroSubtitle,
+      publisher: { "@id": `${site.url}/#organization` },
+      inLanguage: "en-US",
+    },
+  ],
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </head>
       <body className="bg-bg text-ink antialiased selection:bg-electric selection:text-white font-sans">
         <AmbientBackground />

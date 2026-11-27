@@ -9,12 +9,30 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { JobsList, type JobItem } from "@/components/careers/jobs-list";
 import { Reveal } from "@/components/ui/reveal";
+import { site } from "@/lib/site";
 import { Briefcase, Rocket, Users2, Globe2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Careers at WIZZO | Technology & Digital Solutions",
+  title: "Careers",
   description:
     "Join WIZZO Solutions — connect with our team of developers, designers, and creative thinkers building meaningful digital experiences.",
+  alternates: {
+    canonical: "/careers",
+  },
+  openGraph: {
+    title: `Careers | ${site.name}`,
+    description:
+      "Join WIZZO Solutions — connect with our team of developers, designers, and creative thinkers building meaningful digital experiences.",
+    url: `${site.url}/careers`,
+    type: "website",
+    siteName: site.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Careers | ${site.name}`,
+    description:
+      "Join WIZZO Solutions — connect with our team of developers, designers, and creative thinkers building meaningful digital experiences.",
+  },
 };
 
 export const dynamic = "force-dynamic";

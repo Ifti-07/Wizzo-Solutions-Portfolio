@@ -10,7 +10,6 @@ import {
   GraduationCap,
   Briefcase,
   Layers3,
-  CheckSquare,
   Settings,
   Home,
   LogOut,
@@ -28,7 +27,6 @@ const nav = [
   { href: "/admin/jobs", label: "Job Openings", icon: Briefcase },
   { href: "/admin/content", label: "Website Content", icon: Layers3 },
   { href: "/admin/users", label: "Team & Interns", icon: Users },
-  { href: "/admin/tasks", label: "Task Assignment", icon: CheckSquare },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

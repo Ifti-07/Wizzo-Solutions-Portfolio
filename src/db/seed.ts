@@ -8,7 +8,6 @@ import {
   partners,
   services,
   announcements,
-  tasks,
   certificates,
 } from "./schema";
 import { servicesFallback } from "../lib/site";
@@ -204,40 +203,13 @@ async function seed() {
   await db.insert(announcements).values([
     {
       title: "Welcome to the Wizzo Team Portal",
-      body: "This is your central hub for tasks, announcements, resources and certificates. Keep your profile up to date.",
+      body: "This is your central hub for announcements, resources and certificates. Keep your profile up to date.",
       audience: "ALL",
     },
     {
       title: "Internship Cohort — Orientation",
-      body: "Orientation for the new internship cohort will be held this week. Check your tasks and connect with your assigned mentor.",
+      body: "Orientation for the new internship cohort will be held this week. Connect with your assigned mentor.",
       audience: "INTERNS",
-    },
-  ]);
-
-  await db.insert(tasks).values([
-    {
-      title: "Review Q3 project roadmap",
-      description: "Go through the client roadmap draft and add engineering estimates.",
-      assigneeId: employee.id,
-      status: "IN_PROGRESS",
-    },
-    {
-      title: "Prepare sprint demo notes",
-      description: "Summarize completed tickets for Friday's client demo.",
-      assigneeId: employee.id,
-      status: "TODO",
-    },
-    {
-      title: "Complete React fundamentals module",
-      description: "Finish the internal React learning track and submit your notes.",
-      assigneeId: intern.id,
-      status: "DONE",
-    },
-    {
-      title: "Build your first Next.js page",
-      description: "Create a responsive landing page following the Wizzo design system.",
-      assigneeId: intern.id,
-      status: "IN_PROGRESS",
     },
   ]);
 

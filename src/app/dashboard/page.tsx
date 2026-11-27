@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { db } from "@/db";
-import { users, tasks, announcements, certificates } from "@/db/schema";
+import { users, announcements, certificates } from "@/db/schema";
 import { desc, eq, inArray, or } from "drizzle-orm";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -13,16 +13,15 @@ export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const audience = user.role === "INTERN" ? ["ALL", "INTERNS"] as const : ["ALL", "EMPLOYEES"] as const;
+  const audience = user.role === "INTERN" ? (["ALL", "INTERNS"] as const) : (["ALL", "EMPLOYEES"] as const);
 
-  const [userTasks, notes, certs, mentor] = await Promise.all([
-    db.select().from(tasks).where(eq(tasks.assigneeId, user.id)).orderBy(desc(tasks.createdAt)),
+  const [notes, certs, mentor] = await Promise.all([
     db
       .select()
       .from(announcements)
       .where(or(inArray(announcements.audience, [...audience])))
       .orderBy(desc(announcements.createdAt))
-      .limit(6),
+      .limit(8),
     db.select().from(certificates).where(eq(certificates.userId, user.id)).orderBy(desc(certificates.issueDate)),
     user.mentorId
       ? db.select({ name: users.name, position: users.position }).from(users).where(eq(users.id, user.mentorId)).limit(1)
@@ -44,15 +43,17 @@ export default async function DashboardPage() {
         createdAt: user.createdAt.toISOString(),
       }}
       mentor={mentor[0] ?? null}
-      tasks={userTasks.map((t) => ({
-        id: t.id, title: t.title, description: t.description, status: t.status,
-        dueDate: t.dueDate ? t.dueDate.toISOString() : null,
-      }))}
       announcements={notes.map((a) => ({
-        id: a.id, title: a.title, body: a.body, createdAt: a.createdAt.toISOString(),
+        id: a.id,
+        title: a.title,
+        body: a.body,
+        createdAt: a.createdAt.toISOString(),
       }))}
       certificates={certs.map((c) => ({
-        id: c.id, title: c.title, program: c.program, credentialId: c.credentialId,
+        id: c.id,
+        title: c.title,
+        program: c.program,
+        credentialId: c.credentialId,
         issueDate: c.issueDate.toISOString(),
       }))}
     />

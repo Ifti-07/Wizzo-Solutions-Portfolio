@@ -36,11 +36,6 @@ export async function ensureDatabaseSchema(): Promise<void> {
             END $$;
 
             DO $$ BEGIN
-              CREATE TYPE task_status AS ENUM ('TODO', 'IN_PROGRESS', 'DONE');
-            EXCEPTION WHEN duplicate_object THEN null;
-            END $$;
-
-            DO $$ BEGIN
               CREATE TYPE audience AS ENUM ('ALL', 'EMPLOYEES', 'INTERNS');
             EXCEPTION WHEN duplicate_object THEN null;
             END $$;
@@ -146,18 +141,6 @@ export async function ensureDatabaseSchema(): Promise<void> {
               audience audience NOT NULL DEFAULT 'ALL',
               created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
             );
-
-            CREATE TABLE IF NOT EXISTS tasks (
-              id SERIAL PRIMARY KEY,
-              title TEXT NOT NULL,
-              description TEXT NOT NULL DEFAULT '',
-              assignee_id INTEGER NOT NULL,
-              status task_status NOT NULL DEFAULT 'TODO',
-              due_date TIMESTAMPTZ,
-              created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-            );
-
-            CREATE INDEX IF NOT EXISTS tasks_assignee_idx ON tasks(assignee_id);
 
             CREATE TABLE IF NOT EXISTS certificates (
               id SERIAL PRIMARY KEY,

@@ -18,7 +18,6 @@ export const appStatusEnum = pgEnum("application_status", [
   "APPROVED",
   "REJECTED",
 ]);
-export const taskStatusEnum = pgEnum("task_status", ["TODO", "IN_PROGRESS", "DONE"]);
 export const audienceEnum = pgEnum("audience", ["ALL", "EMPLOYEES", "INTERNS"]);
 
 export const users = pgTable(
@@ -127,20 +126,6 @@ export const announcements = pgTable("announcements", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
-export const tasks = pgTable(
-  "tasks",
-  {
-    id: serial("id").primaryKey(),
-    title: text("title").notNull(),
-    description: text("description").notNull().default(""),
-    assigneeId: integer("assignee_id").notNull(),
-    status: taskStatusEnum("status").notNull().default("TODO"),
-    dueDate: timestamp("due_date", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("tasks_assignee_idx").on(t.assigneeId)]
-);
-
 export const certificates = pgTable("certificates", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull(),
@@ -171,5 +156,4 @@ export type Partner = typeof partners.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type Contact = typeof contacts.$inferSelect;
 export type Announcement = typeof announcements.$inferSelect;
-export type Task = typeof tasks.$inferSelect;
 export type Certificate = typeof certificates.$inferSelect;

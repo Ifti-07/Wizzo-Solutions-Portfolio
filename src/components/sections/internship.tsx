@@ -98,7 +98,7 @@ export function InternshipSection() {
             </span>
             <h4 className="font-display mt-4 font-bold text-ink">Completion Certificate</h4>
             <p className="mt-1 text-xs text-ink-2">
-              Receive verified institutional credentials documenting your completed tasks and technical tracks.
+              Receive verified institutional credentials documenting your completed milestones and technical tracks.
             </p>
           </div>
         </div>

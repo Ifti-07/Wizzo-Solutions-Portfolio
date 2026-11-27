@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { LoginForm } from "@/components/auth/login-form";
 
-export const metadata: Metadata = { title: "Admin Login" };
+export const metadata: Metadata = { title: "Authorized Login" };
 export const dynamic = "force-dynamic";
 
 export default async function AdminLoginPage() {

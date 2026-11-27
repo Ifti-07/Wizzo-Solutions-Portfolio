@@ -194,9 +194,9 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: EASE }}
-            className="fixed inset-0 z-[65] flex flex-col bg-surface/98 px-6 pt-24 pb-8 backdrop-blur-2xl lg:hidden"
+            className="fixed inset-0 z-[65] flex flex-col overflow-y-auto bg-surface/98 px-6 pt-24 pb-8 backdrop-blur-2xl lg:hidden"
           >
-            <div className="flex flex-col justify-between h-full">
+            <div className="flex min-h-full flex-col justify-between">
               {/* Staggered Link Entrance (B7: Moving up Spacing-300 (24px), stepped 60ms, capped at 400ms) */}
               <nav className="flex flex-col space-y-1">
                 {navItems.map((item, idx) => {

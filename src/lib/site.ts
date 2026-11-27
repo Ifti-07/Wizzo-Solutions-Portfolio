@@ -662,4 +662,5 @@ export const verifiedPartners = [
   { name: "K.H Construction & Engineering", logo: "/api/brand-asset/KH%20Contructions.jpeg" },
   { name: "Kooza", logo: "/api/brand-asset/kooza.jpg" },
   { name: "Nakama", logo: "/api/brand-asset/Nakama.jpg" },
+  { name: "Re-tired", logo: "/api/brand-asset/Re-tired%20logo.png" },
 ];

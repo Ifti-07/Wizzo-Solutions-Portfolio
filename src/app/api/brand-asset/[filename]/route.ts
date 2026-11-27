@@ -19,6 +19,7 @@ const ALLOWED_FILES = new Map<string, string>([
   ["KH Contructions.jpeg", path.join(TRUSTED_LOGO_DIR, "KH Contructions.jpeg")],
   ["Hexa Logo.jpeg", path.join(TRUSTED_LOGO_DIR, "Hexa Logo.jpeg")],
   ["4pds logo web transparent.png", path.join(TRUSTED_LOGO_DIR, "4pds logo web transparent.png")],
+  ["Re-tired logo.png", path.join(TRUSTED_LOGO_DIR, "Re-tired logo.png")],
 ]);
 
 const CONTENT_TYPES: Record<string, string> = {

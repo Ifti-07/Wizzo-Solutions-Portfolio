@@ -51,15 +51,15 @@ export function TaglineRevealSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-24 sm:py-32"
+      className="relative w-full py-12 sm:py-20 md:py-28"
       aria-label="Core Benefit Statement"
     >
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <div className="mx-auto max-w-[680px] text-center">
-          <p className="caption-3 uppercase tracking-widest text-electric mb-5 font-semibold">
+          <p className="caption-3 uppercase tracking-widest text-electric mb-3 sm:mb-5 font-semibold">
             Our Core Commitment
           </p>
-          <h2 className="heading-3 sm:heading-2 font-semibold tracking-tight text-ink leading-tight [text-wrap:balance]">
+          <h2 className="text-2xl leading-snug sm:heading-2 font-semibold tracking-tight text-ink [text-wrap:balance]">
             {words.map((word, i) => {
               const start = i / words.length;
               const end = start + 1 / words.length;

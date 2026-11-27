@@ -52,14 +52,14 @@ export function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+    <section id="projects" className="relative py-12 sm:py-16 md:py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
+        <div className="flex flex-col items-start justify-between gap-4 sm:gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+            <h2 className="font-display mt-2 sm:mt-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
               Real Work. Practical Systems. Measurable Value.
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-ink-2">
+            <p className="mt-2.5 sm:mt-5 max-w-md text-xs sm:text-sm leading-relaxed text-ink-2">
               A portfolio of platforms, systems, and operational tools engineered with care. Drag, swipe,
               or use the arrows to explore.
             </p>
@@ -87,21 +87,21 @@ export function ProjectsSection() {
         </div>
       </div>
       
-      <div className="mx-auto mt-12 max-w-7xl px-5 md:px-8">
+      <div className="mx-auto mt-6 sm:mt-12 max-w-7xl px-4 sm:px-5 md:px-8">
         <div
           ref={trackRef}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerLeave={endDrag}
-          className="no-scrollbar flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto pb-6 active:cursor-grabbing"
+          className="no-scrollbar flex cursor-grab snap-x snap-mandatory gap-4 sm:gap-6 overflow-x-auto pb-3 sm:pb-6 active:cursor-grabbing"
           style={{ touchAction: "pan-x" }}
         >
           {featuredProjects.map((project, idx) => (
             <article
               data-card
               key={project.id}
-              className="glass-card group flex w-[86vw] shrink-0 snap-start flex-col overflow-hidden rounded-3xl transition-all duration-300 hover:shadow-xl sm:w-[420px] lg:w-[460px]"
+              className="glass-card group flex w-[84vw] shrink-0 snap-start flex-col overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-300 hover:shadow-xl sm:w-[420px] lg:w-[460px]"
             >
               <div className="relative overflow-hidden">
                 <Image
@@ -109,8 +109,8 @@ export function ProjectsSection() {
                   alt={project.title}
                   width={920}
                   height={416}
-                  sizes="(min-width: 1024px) 460px, (min-width: 640px) 420px, 86vw"
-                  className="h-52 w-full select-none object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(min-width: 1024px) 460px, (min-width: 640px) 420px, 84vw"
+                  className="h-40 sm:h-52 w-full select-none object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <span className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
                   Project {String(idx + 1).padStart(2, "0")}

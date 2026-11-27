@@ -41,15 +41,15 @@ export function ServicesSection() {
   const regular = coreServices.slice(2);
 
   return (
-    <section id="services" className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <section id="services" className="relative py-12 sm:py-16 md:py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         {/* Section Header */}
-        <div className="flex flex-col items-start gap-6">
+        <div className="flex flex-col items-start gap-4 sm:gap-6">
           <div className="max-w-2xl">
-            <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+            <h2 className="font-display mt-2 sm:mt-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
               Practical Technology Services Engineered for Growth
             </h2>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-ink-2">
+            <p className="mt-2.5 sm:mt-4 max-w-md text-xs sm:text-sm leading-relaxed text-ink-2">
               We provide eight specialized technology practices designed to solve concrete operational
               hurdles, build dependable platforms, and create long-term digital enterprise value.
             </p>
@@ -57,31 +57,31 @@ export function ServicesSection() {
         </div>
 
         {/* Featured Flagship Services (Top 2: Asymmetric Editorial Row) */}
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+        <div className="mt-7 sm:mt-14 grid gap-4 sm:gap-8 lg:grid-cols-2">
           {featured.map((svc) => {
             const Icon = iconMap[svc.iconName] || Code2;
             return (
               <div
                 key={svc.id}
-                className="glass-card group relative flex flex-col justify-between overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:shadow-xl"
+                className="glass-card group relative flex flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl p-5 sm:p-8 transition-all duration-300 hover:shadow-xl"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-electric/10 text-electric transition-colors group-hover:bg-electric group-hover:text-white">
-                      <Icon size={24} />
+                    <span className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-electric/10 text-electric transition-colors group-hover:bg-electric group-hover:text-white">
+                      <Icon size={20} className="sm:size-6" />
                     </span>
                   </div>
 
-                  <h3 className="font-display mt-6 text-2xl font-bold text-ink">
+                  <h3 className="font-display mt-4 sm:mt-6 text-lg sm:text-2xl font-bold text-ink">
                     {svc.title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-relaxed text-ink-2">
+                  <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed text-ink-2">
                     {svc.fullDescription}
                   </p>
 
-                  <div className="mt-6 rounded-2xl border border-line/60 bg-surface-2/60 p-4">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-electric">
+                  <div className="mt-4 sm:mt-6 rounded-xl sm:rounded-2xl border border-line/60 bg-surface-2/60 p-3 sm:p-4">
+                    <span className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-electric">
                       Business Value
                     </span>
                     <p className="mt-1 text-xs text-ink-2">
@@ -89,24 +89,24 @@ export function ServicesSection() {
                     </p>
                   </div>
 
-                  <div className="mt-6 flex flex-wrap gap-2">
+                  <div className="mt-4 sm:mt-6 flex flex-wrap gap-1.5 sm:gap-2">
                     {svc.deliverables.map((item) => (
                       <span
                         key={item}
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-3 py-1 text-xs text-ink-2"
+                        className="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg border border-line bg-surface px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs text-ink-2"
                       >
-                        <CheckCircle2 size={12} className="text-electric" />
+                        <CheckCircle2 size={11} className="text-electric shrink-0 sm:size-3" />
                         {item}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="mt-8 border-t border-line pt-5">
+                <div className="mt-5 sm:mt-8 border-t border-line pt-4 sm:pt-5">
                   <button
                     type="button"
                     onClick={() => setSelectedService(svc)}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-electric transition-colors hover:text-ink dark:hover:text-white"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-electric transition-colors hover:text-ink dark:hover:text-white"
                   >
                     <span>Read Full Scope &amp; Specifications</span>
                     <ArrowUpRight size={15} />
@@ -117,14 +117,14 @@ export function ServicesSection() {
           })}
         </div>
 
-        {/* Regular Services Grid (Remaining 6 Services) */}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Regular Services Grid (Remaining 6 Services — horizontal snap on mobile) */}
+        <div className="mt-5 sm:mt-8 flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-2 no-scrollbar sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:pb-0 lg:grid-cols-3">
           {regular.map((svc) => {
             const Icon = iconMap[svc.iconName] || Code2;
             return (
               <div
                 key={svc.id}
-                className="glass-card group flex flex-col justify-between rounded-2xl p-6 transition-all duration-300 hover:shadow-md"
+                className="glass-card group flex w-[82vw] shrink-0 snap-start flex-col justify-between rounded-2xl p-5 sm:w-auto sm:p-6 transition-all duration-300 hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between">

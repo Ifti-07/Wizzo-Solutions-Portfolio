@@ -718,7 +718,7 @@ export function HeroSection() {
     <section
       id="hero"
       aria-label="WIZZO Solutions Hero"
-      className="relative isolate min-h-0 lg:min-h-[85svh] flex flex-col justify-center overflow-hidden pt-20 pb-10 sm:pt-24 sm:pb-12 md:pt-26 md:pb-14 lg:pt-32 lg:pb-18 xl:pt-36 xl:pb-22"
+      className="relative isolate min-h-0 lg:min-h-[85svh] flex flex-col justify-center overflow-hidden pt-16 pb-6 sm:pt-24 sm:pb-12 md:pt-26 md:pb-14 lg:pt-32 lg:pb-18 xl:pt-36 xl:pb-22"
     >
       {/* ------------------------------------------------------------------ */}
       {/* BACKGROUND FLOORS: Perspective Diamond Grid & Cursor Spotlight     */}
@@ -726,7 +726,7 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         {/* Soft radial glow centered behind 3D visual */}
         <div
-          className="absolute right-[5%] top-1/2 -translate-y-1/2 size-[650px] rounded-full blur-[110px] opacity-25 dark:opacity-40"
+          className="absolute right-[5%] top-1/2 -translate-y-1/2 size-[320px] sm:size-[650px] rounded-full blur-[90px] sm:blur-[110px] opacity-25 dark:opacity-40"
           style={{ background: "radial-gradient(circle, var(--electric) 0%, transparent 70%)" }}
         />
         {/* Full-bleed seamless diamond grid with smooth radial falloff */}
@@ -745,7 +745,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16 2xl:gap-20">
+        <div className="grid items-center gap-5 sm:gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16 2xl:gap-20">
           {/* ---------------------------------------------------------------- */}
           {/* LEFT COLUMN: Outcome Headline, Copy, 3D Flip CTAs & Metrics       */}
           {/* ---------------------------------------------------------------- */}
@@ -755,7 +755,7 @@ export function HeroSection() {
               initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[28px] leading-[34px] sm:text-[36px] sm:leading-[42px] md:text-[40px] md:leading-[46px] lg:text-[38px] lg:leading-[44px] xl:text-[48px] xl:leading-[54px] 2xl:text-[54px] 2xl:leading-[60px] font-bold tracking-tight text-ink"
+              className="text-[26px] leading-[31px] sm:text-[36px] sm:leading-[42px] md:text-[40px] md:leading-[46px] lg:text-[38px] lg:leading-[44px] xl:text-[48px] xl:leading-[54px] 2xl:text-[54px] 2xl:leading-[60px] font-bold tracking-tight text-ink"
             >
               <span className="block">Custom software &</span>
               <span className="block">intelligent workflows</span>
@@ -768,8 +768,8 @@ export function HeroSection() {
             <motion.p
               initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-3.5 sm:mt-5 text-sm sm:text-base lg:text-base xl:text-lg leading-relaxed text-ink-2 max-w-[500px] xl:max-w-[540px]"
+              transition={{ duration: 0.45, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-2.5 sm:mt-5 text-[13px] sm:text-base lg:text-base xl:text-lg leading-relaxed text-ink-2 max-w-[500px] xl:max-w-[540px]"
             >
               We engineer high-performance web applications, automated operational pipelines, and mission-critical API architectures tailored to how your enterprise works.
             </motion.p>
@@ -778,8 +778,8 @@ export function HeroSection() {
             <motion.div
               initial={reduce ? { opacity: 1 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
+              transition={{ duration: 0.45, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-4 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
             >
               {/* Primary 3D Flip Button */}
               <Link
@@ -803,8 +803,8 @@ export function HeroSection() {
             <motion.div
               initial={reduce ? { opacity: 1 } : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.45, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-5 sm:mt-7 flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm text-ink-2 font-medium"
+              transition={{ duration: 0.45, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-3.5 sm:mt-7 flex flex-wrap items-center gap-x-3.5 sm:gap-x-6 gap-y-1.5 text-[11px] sm:text-sm text-ink-2 font-medium"
             >
               <span className="inline-flex items-center gap-1.5 sm:gap-2">
                 <CheckCircle2 size={15} className="text-electric shrink-0" />
@@ -824,8 +824,8 @@ export function HeroSection() {
             <motion.div
               initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-4 border-t border-line/70 pt-4 sm:pt-6 w-full max-w-[480px]"
+              transition={{ duration: 0.45, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-4 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-4 border-t border-line/70 pt-3.5 sm:pt-6 w-full max-w-[480px]"
             >
               <div>
                 <div className="flex items-center gap-1 sm:gap-1.5 text-ink font-bold text-base sm:text-lg xl:text-xl">
@@ -855,12 +855,12 @@ export function HeroSection() {
           {/* RIGHT COLUMN: 3D ISOMETRIC CORE & EXPANDABLE STAGE CARDS         */}
           {/* ---------------------------------------------------------------- */}
           <div
-            className="relative flex items-center justify-center lg:justify-end select-none w-full mt-4 lg:mt-0"
+            className="relative flex items-center justify-center lg:justify-end select-none w-full mt-1 sm:mt-4 lg:mt-0"
             onPointerMove={handlePointerMove}
             onPointerLeave={handlePointerLeave}
           >
             {/* Tilted 3D Container */}
-            <div className="relative w-full aspect-square max-w-[320px] sm:max-w-[420px] md:max-w-[500px] lg:max-w-[460px] xl:max-w-[580px] 2xl:max-w-[650px]">
+            <div className="relative w-full aspect-square max-w-[260px] sm:max-w-[420px] md:max-w-[500px] lg:max-w-[460px] xl:max-w-[580px] 2xl:max-w-[650px]">
               <motion.div
                 style={{
                   rotateX: reduce ? 0 : rotateXSpring,
@@ -1059,17 +1059,18 @@ export function HeroSection() {
         {/* ------------------------------------------------------------------ */}
         {/* MOBILE STAGE LIST: Clean Responsive Grid for Screen Widths < 768px */}
         {/* ------------------------------------------------------------------ */}
-        <div className="mt-8 block md:hidden">
-          <div className="mb-3 flex items-center justify-between">
+        <div className="mt-4 block md:hidden">
+          <div className="mb-2.5 flex items-center justify-between">
             <h3 className="text-xs sm:text-sm font-semibold text-ink">5-Layer Architecture Engine</h3>
             <span className="text-[11px] text-electric font-medium">Interactive Stages</span>
           </div>
-          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2">
             {STAGES.map((stage, idx) => (
               <div
                 key={stage.title}
                 className={cn(
-                  "n3-stage-card p-3",
+                  "n3-stage-card p-2.5",
+                  idx === STAGES.length - 1 && "col-span-2",
                   stage.main && "border-electric/50 shadow-xs"
                 )}
               >

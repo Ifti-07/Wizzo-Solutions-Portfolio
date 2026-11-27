@@ -5,34 +5,34 @@ import { clientTestimonials, type TestimonialItem } from "@/lib/site";
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <section id="testimonials" className="relative py-12 sm:py-16 md:py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="heading-3 sm:heading-2 font-semibold tracking-tight text-ink [text-wrap:balance]">
+          <h2 className="text-2xl sm:heading-2 font-semibold tracking-tight text-ink [text-wrap:balance]">
             Genuine feedback from verified project engagements
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-ink-2 sm:text-base">
+          <p className="mt-2.5 sm:mt-4 text-xs leading-relaxed text-ink-2 sm:text-base">
             We value lasting client relationships built on accountability, transparent communication,
             and software that performs reliably in production every single day.
           </p>
         </div>
 
-        {/* Testimonials Cards Grid */}
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {/* Testimonials Cards Grid (Horizontal snap on mobile) */}
+        <div className="mt-7 sm:mt-16 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 no-scrollbar md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 lg:grid-cols-3">
           {clientTestimonials.map((item) => (
             <div
               key={item.id}
-              className="glass-card flex flex-col justify-between rounded-3xl p-8 transition-all hover:shadow-lg"
+              className="glass-card flex w-[84vw] shrink-0 snap-start flex-col justify-between rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:w-auto transition-all hover:shadow-lg"
             >
               <div>
-                <Quote size={28} className="text-electric/40 mb-4" />
-                <p className="text-sm leading-relaxed text-ink font-medium sm:text-base">
+                <Quote size={22} className="text-electric/40 mb-3 sm:size-7 sm:mb-4" />
+                <p className="text-xs sm:text-base leading-relaxed text-ink font-medium">
                   &ldquo;{item.quote}&rdquo;
                 </p>
               </div>
 
-              <div className="mt-8 border-t border-line/70 pt-5">
+              <div className="mt-5 sm:mt-8 border-t border-line/70 pt-4 sm:pt-5">
                 <div className="flex items-start justify-between">
                   <div>
                     <h4 className="font-display text-sm font-bold text-ink">

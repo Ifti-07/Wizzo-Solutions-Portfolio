@@ -92,11 +92,11 @@ export function Navbar() {
   return (
     <>
       {/* Quiet navigation */}
-      <header className="fixed inset-x-0 top-3 sm:top-4 z-[70] px-3 sm:px-6 pointer-events-none">
+      <header className="fixed inset-x-0 top-2 sm:top-4 z-[70] px-3 sm:px-6 pointer-events-none">
         <nav
           aria-label="Main Navigation"
           className={cn(
-            "pointer-events-auto mx-auto flex max-w-7xl items-center justify-between rounded-[12px] border border-line px-4 sm:px-6 py-2.5 transition-colors duration-200",
+            "pointer-events-auto mx-auto flex max-w-7xl items-center justify-between rounded-[12px] border border-line px-3.5 sm:px-6 py-2 sm:py-2.5 transition-colors duration-200",
             scrolled
               ? "glass shadow-md"
               : "bg-surface/85 backdrop-blur-md shadow-xs"

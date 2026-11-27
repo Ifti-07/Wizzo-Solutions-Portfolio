@@ -7,16 +7,16 @@ import { Logo } from "@/components/ui/logo";
 
 export function AboutSection() {
   return (
-    <section id="about" className="relative overflow-hidden py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+    <section id="about" className="relative overflow-hidden py-12 sm:py-16 md:py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
+        <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Narrative Left Column */}
           <div>
-            <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+            <h2 className="font-display mt-2 sm:mt-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
               A Real Technology Team Solving Concrete Business Challenges
             </h2>
 
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-ink-2">
+            <div className="mt-4 sm:mt-6 space-y-3 sm:space-y-4 text-sm sm:text-base leading-relaxed text-ink-2">
               <p>
                 WIZZO Solutions was built on a simple premise: businesses don&apos;t need over-engineered,
                 bloated software—they need reliable, practical digital tools that work quietly, predictably,
@@ -35,23 +35,23 @@ export function AboutSection() {
             </div>
 
             {/* Core Values Strip */}
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-line bg-surface p-4">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-electric-soft text-electric">
-                  <Compass size={18} />
+            <div className="mt-6 sm:mt-8 grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="rounded-2xl border border-line bg-surface p-3.5 sm:p-4">
+                <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-electric-soft text-electric">
+                  <Compass size={16} className="sm:size-[18px]" />
                 </span>
-                <h4 className="font-display mt-3 text-sm font-bold text-ink">Clarity Over Complexity</h4>
-                <p className="mt-1 text-xs text-ink-2">
+                <h4 className="font-display mt-2.5 sm:mt-3 text-xs sm:text-sm font-bold text-ink">Clarity Over Complexity</h4>
+                <p className="mt-1 text-[11px] sm:text-xs text-ink-2">
                   We demystify tech choices. If a simple, battle-tested solution works best, that is what we build.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-line bg-surface p-4">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-electric-soft text-electric">
-                  <HeartHandshake size={18} />
+              <div className="rounded-2xl border border-line bg-surface p-3.5 sm:p-4">
+                <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-electric-soft text-electric">
+                  <HeartHandshake size={16} className="sm:size-[18px]" />
                 </span>
-                <h4 className="font-display mt-3 text-sm font-bold text-ink">Human-First Partnership</h4>
-                <p className="mt-1 text-xs text-ink-2">
+                <h4 className="font-display mt-2.5 sm:mt-3 text-xs sm:text-sm font-bold text-ink">Human-First Partnership</h4>
+                <p className="mt-1 text-[11px] sm:text-xs text-ink-2">
                   Transparent communication, realistic milestones, and direct access to your engineering team.
                 </p>
               </div>
@@ -60,9 +60,9 @@ export function AboutSection() {
 
           {/* Visual Presentation Right Column */}
           <div className="relative">
-            <div className="relative mx-auto w-full max-w-lg rounded-3xl border border-line bg-surface p-6 shadow-xl md:p-8">
+            <div className="relative mx-auto w-full max-w-lg rounded-2xl sm:rounded-3xl border border-line bg-surface p-4 sm:p-6 shadow-xl md:p-8">
               {/* Top Identity Header */}
-              <div className="flex items-center justify-between border-b border-line pb-5">
+              <div className="flex items-center justify-between border-b border-line pb-3.5 sm:pb-5">
                 <Logo className="!h-5 sm:!h-6" />
                 <span className="rounded-full border border-line bg-surface-2 px-3 py-1 font-mono text-[10px] text-ink-3">
                   ESTABLISHED PRESENCE

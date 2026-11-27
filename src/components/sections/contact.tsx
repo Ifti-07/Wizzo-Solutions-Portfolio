@@ -35,40 +35,40 @@ export function ContactSection({ config }: { config?: SiteRuntime | null }) {
   }, [state]);
 
   return (
-    <section id="contact" className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <section id="contact" className="relative py-12 sm:py-16 md:py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         {/* Closing CTA Block (A2 Item 11 & 12) */}
-        <div className="glass-card rounded-3xl p-8 md:p-12 mb-16">
+        <div className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 mb-7 sm:mb-12 md:mb-16">
           <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-electric">
-              <MessageSquare size={13} />
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-electric">
+              <MessageSquare size={12} className="sm:size-[13px]" />
               Ready When You Are
             </span>
-            <h2 className="heading-3 sm:heading-2 font-semibold tracking-tight text-ink [text-wrap:balance] mt-4">
+            <h2 className="text-2xl sm:heading-2 font-semibold tracking-tight text-ink [text-wrap:balance] mt-3 sm:mt-4">
               Ready to engineer dependable software for your business?
             </h2>
-            <p className="mt-4 text-base text-ink-2 leading-relaxed [text-wrap:pretty]">
+            <p className="mt-2.5 sm:mt-4 text-xs sm:text-base text-ink-2 leading-relaxed [text-wrap:pretty]">
               Whether you are planning a modern web platform, looking to automate daily workflows,
               or seeking dependable engineering advisory, our team is ready to evaluate your goals and map out a clear technical blueprint.
             </p>
-            <p className="mt-3 text-xs text-ink-3">
+            <p className="mt-2 sm:mt-3 text-[11px] sm:text-xs text-ink-3">
               Free 30 minute architecture consultation. No commitment required.
             </p>
           </div>
         </div>
 
         {/* Section 15: Contact Form & Channels Grid */}
-        <div className="grid gap-10 lg:grid-cols-[1.3fr_0.9fr]">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1.3fr_0.9fr]">
           {/* Accessible Contact Form */}
-          <div className="glass-card rounded-3xl p-7 md:p-10">
-            <h3 className="font-display text-xl font-bold text-ink">
+          <div className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 md:p-10">
+            <h3 className="font-display text-lg sm:text-xl font-bold text-ink">
               Send a Direct Project Inquiry
             </h3>
             <p className="mt-1 text-xs text-ink-2 sm:text-sm">
               Fill out the details below. Our team reviews all inquiries promptly within one business day.
             </p>
 
-            <form ref={formRef} action={action} className="mt-8 space-y-4">
+            <form ref={formRef} action={action} className="mt-5 sm:mt-8 space-y-3.5 sm:space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="block text-xs font-semibold text-ink mb-1.5">

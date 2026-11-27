@@ -23,8 +23,8 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
 
   return (
     <footer className="relative overflow-hidden border-t border-line bg-[#040814] text-white">
-      <div className="relative mx-auto max-w-7xl px-5 pt-16 pb-12 md:px-8 md:pt-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1.1fr_1.1fr]">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-5 pt-10 pb-8 md:px-8 md:pt-20 md:pb-12">
+        <div className="grid gap-8 sm:grid-cols-2 lg:gap-12 lg:grid-cols-[1.4fr_1fr_1.1fr_1.1fr]">
           {/* Brand Column */}
           <div>
             <Link href="/" className="inline-block">
@@ -32,7 +32,7 @@ export function Footer({ config }: { config?: SiteRuntime | null }) {
               <Logo onDark />
             </Link>
 
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/65">
+            <p className="mt-3.5 sm:mt-5 max-w-sm text-xs sm:text-sm leading-relaxed text-white/65">
               WIZZO Solutions is a corporate technology company delivering reliable custom software,
               modern web applications, and thoughtful business automation. Built with practical engineering
               and genuine human dedication.

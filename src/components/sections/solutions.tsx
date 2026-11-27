@@ -49,15 +49,15 @@ function SolutionCard({ item, index, hovered, onHover }: CardProps) {
       ref={ref}
       onMouseEnter={() => onHover(index)}
       className={cn(
-        "relative h-full transition-all duration-500",
+        "relative h-full w-[82vw] shrink-0 snap-start md:w-auto transition-all duration-500",
         isDimmed ? "scale-[0.99] opacity-50 blur-[2px]" : ""
       )}
     >
       <motion.div
         initial={false}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-        transition={{ duration: reduce ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="glass-card group relative flex h-full flex-col justify-between rounded-3xl p-7 transition-[box-shadow] duration-300 hover:shadow-lg"
+        animate={reduce || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+        transition={{ duration: reduce ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="glass-card group relative flex h-full flex-col justify-between rounded-2xl sm:rounded-3xl p-5 sm:p-7 transition-[box-shadow] duration-300 hover:shadow-lg"
       >
         {/* Skeleton shown first, then fades away as the real content reveals */}
         <div
@@ -148,23 +148,23 @@ export function SolutionsSection() {
   return (
     <section
       id="solutions"
-      className="relative py-24 md:py-32"
+      className="relative py-12 sm:py-16 md:py-24 lg:py-32"
     >
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+          <h2 className="font-display mt-2 sm:mt-4 text-2xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
             Business Solutions Designed to Solve Real-World Friction
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-ink-2 sm:text-base">
+          <p className="mt-2.5 sm:mt-4 text-xs leading-relaxed text-ink-2 sm:text-base">
             Services explain what we do; solutions explain what you gain. We turn complex technical capabilities
             into tangible business outcomes that save time, cut errors, and generate revenue.
           </p>
         </div>
 
-        {/* 6 Solutions Cards (Problem & Outcome Mapping) */}
+        {/* 6 Solutions Cards (Horizontal snap on mobile) */}
         <div
-          className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          className="mt-7 sm:mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 no-scrollbar md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 lg:grid-cols-3"
           onMouseLeave={() => setHovered(null)}
         >
           {solutionsList.map((item, index) => (

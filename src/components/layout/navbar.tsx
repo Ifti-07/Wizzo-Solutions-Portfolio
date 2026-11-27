@@ -28,12 +28,14 @@ export function Navbar() {
 
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState(isCareersPage ? "careers" : "hero");
+  const [activeSection, setActiveSection] = useState("hero");
+  const currentSection = isCareersPage ? "careers" : activeSection;
   const reduce = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 24);
+      const next = window.scrollY > 24;
+      setScrolled((prev) => (prev === next ? prev : next));
     };
 
     handleScroll();
@@ -42,32 +44,28 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (isCareersPage) {
-      setActiveSection("careers");
-      return;
-    }
+    if (isCareersPage || !isHomePage) return;
 
-    if (!isHomePage) return;
+    const sectionIds = ["hero", "services", "solutions", "process", "projects", "careers", "contact"];
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
 
-    const onScroll = () => {
-      const sections = ["hero", "services", "solutions", "process", "projects", "careers", "contact"];
-      const scrollPos = window.scrollY + 140;
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(section);
-            break;
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
           }
         }
-      }
-    };
+      },
+      { rootMargin: "-140px 0px -55% 0px", threshold: 0 }
+    );
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, [isCareersPage, isHomePage]);
 
   useEffect(() => {
@@ -117,7 +115,7 @@ export function Navbar() {
           <ul className="hidden items-center gap-1 lg:flex">
             {navItems.map((item) => {
               const href = getHref(item);
-              const isActive = activeSection === item.section;
+              const isActive = currentSection === item.section;
               return (
                 <li key={item.label}>
                   <Link

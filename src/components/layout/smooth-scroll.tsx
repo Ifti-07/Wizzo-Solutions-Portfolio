@@ -29,11 +29,13 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     };
     raf = requestAnimationFrame(loop);
 
+    let hashTimer: ReturnType<typeof setTimeout> | undefined;
     if (window.location.hash) {
-      setTimeout(() => {
-        const target = document.querySelector(window.location.hash);
+      const targetId = window.location.hash.slice(1);
+      hashTimer = setTimeout(() => {
+        const target = document.getElementById(targetId);
         if (target) {
-          lenis.scrollTo(target as HTMLElement, { offset: -84, immediate: true });
+          lenis.scrollTo(target, { offset: -84, immediate: true });
         }
       }, 100);
     }
@@ -43,16 +45,17 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       if (!anchor) return;
       const href = anchor.getAttribute("href") || "";
       const id = href.replace(/^\//, "");
-      if (!id.startsWith("#")) return;
-      const el = document.querySelector(id);
+      if (!id.startsWith("#") || id.length < 2) return;
+      const el = document.getElementById(id.slice(1));
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, { offset: -84, duration: 1.4 });
+      lenis.scrollTo(el, { offset: -84, duration: 1.4 });
       window.history.pushState(null, "", id);
     };
     document.addEventListener("click", onClick);
 
     return () => {
+      if (hashTimer) clearTimeout(hashTimer);
       cancelAnimationFrame(raf);
       document.removeEventListener("click", onClick);
       lenis.destroy();
@@ -63,11 +66,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!lenisRef.current) return;
     const hash = window.location.hash;
-    if (hash) {
+    if (hash && hash.length > 1) {
       const timer = setTimeout(() => {
-        const el = document.querySelector(hash);
+        const el = document.getElementById(hash.slice(1));
         if (el && lenisRef.current) {
-          lenisRef.current.scrollTo(el as HTMLElement, { offset: -84, duration: 1.2 });
+          lenisRef.current.scrollTo(el, { offset: -84, duration: 1.2 });
         }
       }, 150);
       return () => clearTimeout(timer);

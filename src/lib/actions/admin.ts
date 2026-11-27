@@ -178,8 +178,8 @@ export async function adminSaveJob(data: {
     });
 
     return { ok: true };
-  } catch (err: any) {
-    return { ok: false, error: err?.message || "Failed to save opening." };
+  } catch (err: unknown) {
+    return { ok: false, error: err instanceof Error ? err.message : "Failed to save opening." };
   }
 }
 
@@ -197,8 +197,8 @@ export async function adminToggleJob(id: number, open: boolean): Promise<Ok> {
     }
     await toggleStoredJob(id, open);
     return { ok: true };
-  } catch (err: any) {
-    return { ok: false, error: err?.message || "Failed to toggle status." };
+  } catch (err: unknown) {
+    return { ok: false, error: err instanceof Error ? err.message : "Failed to toggle status." };
   }
 }
 
@@ -216,8 +216,8 @@ export async function adminDeleteJob(id: number): Promise<Ok> {
     }
     await deleteStoredJob(id);
     return { ok: true };
-  } catch (err: any) {
-    return { ok: false, error: err?.message || "Failed to delete opening." };
+  } catch (err: unknown) {
+    return { ok: false, error: err instanceof Error ? err.message : "Failed to delete opening." };
   }
 }
 

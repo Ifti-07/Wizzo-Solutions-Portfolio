@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcryptjs";
 import { db } from "@/db";
-import { users, auditLogs } from "@/db/schema";
+import { users, auditLogs, type User } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const COOKIE_NAME = "wizzo_session";
@@ -64,7 +64,7 @@ export async function getSession(): Promise<SessionPayload | null> {
   }
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<User | null> {
   const session = await getSession();
   if (!session) return null;
   try {
@@ -76,10 +76,17 @@ export async function getCurrentUser() {
       id: session.uid,
       name: session.name,
       email: session.email,
+      passwordHash: "",
       role: session.role,
+      phone: null,
+      position: null,
+      department: null,
+      university: null,
+      program: null,
+      mentorId: null,
       status: "ACTIVE",
       createdAt: new Date(),
-    } as any;
+    };
   }
 }
 

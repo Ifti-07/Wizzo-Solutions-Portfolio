@@ -55,8 +55,8 @@ function JobForm({ initial, id, error, onSuccess, onError }: JobFormProps) {
             return;
           }
           onSuccess();
-        } catch (err: any) {
-          onError(err?.message || "Failed to save opening. Please try again.");
+        } catch (err: unknown) {
+          onError(err instanceof Error ? err.message : "Failed to save opening. Please try again.");
           setSubmitting(false);
         }
       }}

@@ -95,7 +95,7 @@ export function ProjectsSection() {
           onPointerUp={endDrag}
           onPointerLeave={endDrag}
           className="no-scrollbar flex cursor-grab snap-x snap-mandatory gap-4 sm:gap-6 overflow-x-auto pb-3 sm:pb-6 active:cursor-grabbing"
-          style={{ touchAction: "pan-x" }}
+          style={{ touchAction: "pan-x pan-y" }}
         >
           {featuredProjects.map((project, idx) => (
             <article
@@ -110,6 +110,7 @@ export function ProjectsSection() {
                   width={920}
                   height={416}
                   sizes="(min-width: 1024px) 460px, (min-width: 640px) 420px, 84vw"
+                  draggable={false}
                   className="h-40 sm:h-52 w-full select-none object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <span className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">

@@ -62,11 +62,8 @@ export function AboutSection() {
           <div className="relative">
             <div className="relative mx-auto w-full max-w-lg rounded-2xl sm:rounded-3xl border border-line bg-surface p-4 sm:p-6 shadow-xl md:p-8">
               {/* Top Identity Header */}
-              <div className="flex items-center justify-between border-b border-line pb-3.5 sm:pb-5">
+              <div className="flex items-center border-b border-line pb-3.5 sm:pb-5">
                 <Logo className="!h-5 sm:!h-6" />
-                <span className="rounded-full border border-line bg-surface-2 px-3 py-1 font-mono text-[10px] text-ink-3">
-                  ESTABLISHED PRESENCE
-                </span>
               </div>
 
               {/* Dual-Presence Map Card */}
